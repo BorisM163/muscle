@@ -32,8 +32,8 @@ NUMBER_OF_FLIPS_IN_STR_MAX =30
 
 NUMBER_OF_TOTAL_MISTAKES_MAX = 5 # for the mixed 15-10-18
 NUMBER_OF_TOTAL_MISTAKES_MIN = 0 #for the mixed 15-10-18
-MUSCLE_PATH ="/home/ubu/Yael/"#muscle3.8.31_i86linux64"   #Lab
-#MUSCLE_PATH ="C:/Users/moshab/Desktop/final project/muscle/"  #Boris_comp
+#MUSCLE_PATH ="/home/ubu/Yael/"#muscle3.8.31_i86linux64"   #Lab
+MUSCLE_PATH ="C:/Users/moshab/Desktop/final project/muscle/"  #Boris_comp
 MUSCLE_IN_FILE = "in.txt"
 MUSCLE_OUT_FILE = "out.txt"
 
@@ -155,7 +155,6 @@ def makeMATLAB(fileName,listList,minX,maxX, minY,maxY,xlabel,ylabel,zlabel):
     f.write("ylabel('"+ylabel+"');\n")
     f.write("zlabel('"+zlabel+"');\n")
     f.write("savefig('"+fileName+"Lines')\n")
-
     #https://stackoverflow.com/questions/28991376/how-to-set-x-and-y-values-when-using-bar3-in-matlab
     f.write("figure\n")
     f.write("x=["+str(minX)+":"+str(maxX)+"];\n")
@@ -173,66 +172,72 @@ def makeMATLAB(fileName,listList,minX,maxX, minY,maxY,xlabel,ylabel,zlabel):
     f.write("savefig('"+fileName+"Bars')\n")
     f.close()
 
-def multiply_elemnt(arr,mul):
-    res=[]
-    for x in arr:
-        for i in range(mul):
-            res.append(x)
-    return res
-def multiply_array(arr,mul):
-    res=[]
-    for i in range(mul):
-        res+=arr
-    return res
-def flat_arr(arr):
-    res=[]
-    for x in arr:
-        res+=x
-    return res
+# def multiply_elemnt(arr,mul):
+#     res=[]
+#     for x in arr:
+#         for i in range(mul):
+#             res.append(x)
+#     return res
+#
+# def multiply_array(arr,mul):
+#     res=[]
+#     for i in range(mul):
+#         res+=arr
+#     return res
+#
+# def flat_arr(arr):
+#     res=[]
+#     for x in arr:
+#         res+=x
+#     return res
+#
 def mean(numbers):
     return float(sum(numbers)) / max(len(numbers), 1)
-def print_before_and_after(binarySourceString,binaryAfterMajorityString):
-    print "source: " + str(len(binarySourceString)) + "bits", "\tres: " + str(len(binaryAfterMajorityString)) + "bits"
-    print binarySourceString
-    print ''.join(binaryAfterMajorityString)
-def py_plot(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS,num_of_mis,res,g_ind,mis_name):
-    # plot preparetion: pos=data in x axis and in y axis. *BUT* not in z axis, data in Z axis is dz_flip
-    # link-histogram: https://www.youtube.com/watch?v=W94Kv8-c_5g
-    # link2: https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.htmlnum_of_lines=(NUMBER_OF_STRINGS_MAX-NUMBER_OF_STRINGS+1)    num_of_lines = (NUMBER_OF_STRINGS_MAX - NUMBER_OF_STRINGS + 1)
-    num_of_lines=NUMBER_OF_STRINGS_MAX+1-NUMBER_OF_STRINGS
-    xPos = multiply_array(range(NUMBER_OF_STRINGS, NUMBER_OF_STRINGS_MAX + 1), num_of_mis)  # number of lines
-    yPos = multiply_elemnt(range(0, num_of_mis), num_of_lines)  # number of flips per line
-    zPos = np.zeros((num_of_mis) * num_of_lines)  # start position of the cherts is 0
-
-    dx = np.ones(num_of_lines * (num_of_mis))
-    dy = np.ones(num_of_lines * (num_of_mis))
-    dz = flat_arr(res["Z"])
-
-    yPos_avg = range(0, num_of_mis)
-    xPos_avg = np.zeros(len(yPos_avg))
-    zPos_avg = np.zeros(len(yPos_avg))
-    dx_avg = np.ones(len(yPos_avg))
-    dy_avg = np.ones(len(yPos_avg))
-    dz_avg = res['AVG']
-
-    fig1 = plt.figure(g_ind)
-    ax3 = fig1.add_subplot(111, projection='3d')
-    ax3.bar3d(xPos, yPos, zPos, dx, dy, dz, color='#00ceaa')
-    ax3.bar3d(xPos_avg, yPos_avg, zPos_avg, dx_avg, dy_avg, dz_avg, color='#cc4466')
-    ax3.set_xlabel('lines')
-    ax3.set_ylabel('mis_name')
-    ax3.set_zlabel('mistake - precent')
-    ax3.set_title('mis_name')
-
-    fig2 = plt.figure(g_ind+1)
-    ax4 = fig2.add_subplot(111, projection='3d')
-    ax4.scatter3D(xPos, yPos, dz, dz, cmap='Greens');
-    ax4.set_xlabel('lines')
-    ax4.set_ylabel('mis_name')
-    ax4.set_zlabel('mistake - precent')
-    ax4.set_title('mis_name')
-
-    return dz
+#
+# def print_before_and_after(binarySourceString,binaryAfterMajorityString):
+#     print "source: " + str(len(binarySourceString)) + "bits", "\tres: " + str(len(binaryAfterMajorityString)) + "bits"
+#     print binarySourceString
+#     print ''.join(binaryAfterMajorityString)
+#
+#
+# def py_plot(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS,num_of_mis,res,g_ind,mis_name):
+#     # plot preparetion: pos=data in x axis and in y axis. *BUT* not in z axis, data in Z axis is dz_flip
+#     # link-histogram: https://www.youtube.com/watch?v=W94Kv8-c_5g
+#     # link2: https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.htmlnum_of_lines=(NUMBER_OF_STRINGS_MAX-NUMBER_OF_STRINGS+1)    num_of_lines = (NUMBER_OF_STRINGS_MAX - NUMBER_OF_STRINGS + 1)
+#     num_of_lines=NUMBER_OF_STRINGS_MAX+1-NUMBER_OF_STRINGS
+#     xPos = multiply_array(range(NUMBER_OF_STRINGS, NUMBER_OF_STRINGS_MAX + 1), num_of_mis)  # number of lines
+#     yPos = multiply_elemnt(range(0, num_of_mis), num_of_lines)  # number of flips per line
+#     zPos = np.zeros((num_of_mis) * num_of_lines)  # start position of the cherts is 0
+#
+#     dx = np.ones(num_of_lines * (num_of_mis))
+#     dy = np.ones(num_of_lines * (num_of_mis))
+#     dz = flat_arr(res["Z"])
+#
+#     yPos_avg = range(0, num_of_mis)
+#     xPos_avg = np.zeros(len(yPos_avg))
+#     zPos_avg = np.zeros(len(yPos_avg))
+#     dx_avg = np.ones(len(yPos_avg))
+#     dy_avg = np.ones(len(yPos_avg))
+#     dz_avg = res['AVG']
+#
+#     fig1 = plt.figure(g_ind)
+#     ax3 = fig1.add_subplot(111, projection='3d')
+#     ax3.bar3d(xPos, yPos, zPos, dx, dy, dz, color='#00ceaa')
+#     ax3.bar3d(xPos_avg, yPos_avg, zPos_avg, dx_avg, dy_avg, dz_avg, color='#cc4466')
+#     ax3.set_xlabel('lines')
+#     ax3.set_ylabel('mis_name')
+#     ax3.set_zlabel('mistake - precent')
+#     ax3.set_title('mis_name')
+#
+#     fig2 = plt.figure(g_ind+1)
+#     ax4 = fig2.add_subplot(111, projection='3d')
+#     ax4.scatter3D(xPos, yPos, dz, dz, cmap='Greens');
+#     ax4.set_xlabel('lines')
+#     ax4.set_ylabel('mis_name')
+#     ax4.set_zlabel('mistake - precent')
+#     ax4.set_title('mis_name')
+#
+#     return dz
 
 ############################################ MAIM ############################################
 binarySourceString ="01110100101101100011000110111000001110011011010110110110001110010011110010111011001101101011000110111000001101010011011100110001000111000001100010011101110110110001101100011100"
@@ -259,8 +264,8 @@ if FLIP_MOD:
             numberOfStringsWithMixedMistakes = 0
             arr = buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr,numberOfStringsWithDeletions,numberOfStringsWithFlips, numberOfStringsWithMixedMistakes)
             arr2FASTA(arr, 0)  # put arr in "in.txt" file
-            subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out", MUSCLE_PATH + MUSCLE_OUT_FILE]);
-            #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out",MUSCLE_PATH + MUSCLE_OUT_FILE])
+            #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out", MUSCLE_PATH + MUSCLE_OUT_FILE]);
+            subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out",MUSCLE_PATH + MUSCLE_OUT_FILE])
             fasta_file = open(MUSCLE_PATH + MUSCLE_OUT_FILE, 'r')  # read the output of mussle
             output_file = open(MUSCLE_PATH+'mussle_norm_output.txt', 'w')
             fasta_res = FASTA2arr(fasta_file, output_file)
@@ -276,14 +281,13 @@ if FLIP_MOD:
 
     #------------------------------------BORIS------------------------------------------------------------------------------------------------------------
 
-    makeMATLAB("FlipsGraph", resultForGraphFlips['Z'], NUMBER_OF_STRINGS, NUMBER_OF_STRINGS_MAX, NUMBER_OF_FLIPS_IN_STR,
-               NUMBER_OF_FLIPS_IN_STR_MAX, "Number of strings", "Flips in single string", "Error Probability")
+    makeMATLAB("FlipsGraph", resultForGraphFlips['Z'], NUMBER_OF_STRINGS, NUMBER_OF_STRINGS_MAX, NUMBER_OF_FLIPS_IN_STR,NUMBER_OF_FLIPS_IN_STR_MAX, "Number of strings", "Flips in single string", "Error Probability")
     if not PYTHON_GRAPH:
         subprocess.call([r"C:\\Programs\MATLAB\R2017b\bin\matlab.exe","-nodisplay", "-nosplash", "-nodesktop", "-r","\"run('"+MUSCLE_PATH + "FlipsGraph.m')\""])
         x = 1
-    if PYTHON_GRAPH:
-        num_of_flip = NUMBER_OF_FLIPS_IN_STR_MAX + 1 - NUMBER_OF_FLIPS_IN_STR
-        dz_flip = py_plot(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS, num_of_flip, resultForGraphFlips, 1,"Flips")
+    # if PYTHON_GRAPH:
+    #     num_of_flip = NUMBER_OF_FLIPS_IN_STR_MAX + 1 - NUMBER_OF_FLIPS_IN_STR
+    #     dz_flip = py_plot(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS, num_of_flip, resultForGraphFlips, 1,"Flips")
 
 if DELETE_MOD:
     numOfGoodString = NUMBER_OF_GOOD_STRINGS_FOR_DELETIONS
@@ -317,17 +321,14 @@ if DELETE_MOD:
 
 
     #------------------------------------BORIS------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    makeMATLAB("DeletionsGraph", resultForGraphDeletions['Z'], NUMBER_OF_STRINGS, NUMBER_OF_STRINGS_MAX,
-               NUMBER_OF_DELETIONS_IN_STR, NUMBER_OF_DELETIONS_IN_STR_MAX, "Number of strings",
-               "Delitions in single string", "Error Probability")
+    makeMATLAB("DeletionsGraph", resultForGraphDeletions['Z'], NUMBER_OF_STRINGS, NUMBER_OF_STRINGS_MAX,NUMBER_OF_DELETIONS_IN_STR, NUMBER_OF_DELETIONS_IN_STR_MAX, "Number of strings","Delitions in single string", "Error Probability")
     if not PYTHON_GRAPH:
         subprocess.call([r"C:\\Programs\MATLAB\R2017b\bin\matlab.exe","-nodisplay", "-nosplash", "-nodesktop", "-r","\"run('"+MUSCLE_PATH + "DeletionsGraph.m')\""])
         x = 1
-
-    if PYTHON_GRAPH:
-        num_of_del=NUMBER_OF_DELETIONS_IN_STR_MAX + 1- NUMBER_OF_DELETIONS_IN_STR
-        dz_del= py_plot(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS, num_of_del, resultForGraphDeletions,3, "Deleteions")
-
+    # if PYTHON_GRAPH:
+    #     num_of_del=NUMBER_OF_DELETIONS_IN_STR_MAX + 1- NUMBER_OF_DELETIONS_IN_STR
+    #     dz_del= py_plot(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS, num_of_del, resultForGraphDeletions,3, "Deleteions")
+    #
 
 #THIS PART IS FOR FLIPS AND DELETIONS COMBINDED ANALYZIS
 if MIXED:
@@ -345,12 +346,11 @@ if MIXED:
         while numberOfString <= NUMBER_OF_STRINGS_MAX:
             numberOfStringsWithDeletions = random.randint(0,numberOfString-numOfGoodString)
             numberOfStringsWithFlips = numberOfString - numOfGoodString - numberOfStringsWithDeletions
-            numberOfStringsWithMixedMistakes = (int)((numberOfString - numOfGoodString)/2)
+            numberOfStringsWithMixedMistakes_start =(int)(numberOfStringsWithDeletions/2)
             arr = buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips , numberOfStringsWithMixedMistakes)
             arr2FASTA(arr, 1)  # put arr in "in.txt" file
-            subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out",MUSCLE_PATH + MUSCLE_OUT_FILE])
-            #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in",
-             #                MUSCLE_PATH + MUSCLE_IN_FILE, "-out", MUSCLE_PATH + MUSCLE_OUT_FILE])
+            #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out",MUSCLE_PATH + MUSCLE_OUT_FILE])
+            subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in",MUSCLE_PATH + MUSCLE_IN_FILE, "-out", MUSCLE_PATH + MUSCLE_OUT_FILE])
             fasta_file = open(MUSCLE_PATH + MUSCLE_OUT_FILE, 'r')  # read the output of mussle
             output_file = open(MUSCLE_PATH + 'mussle_norm_output.txt', 'w')
             fasta_res = FASTA2arr(fasta_file, output_file)
@@ -366,25 +366,22 @@ if MIXED:
 
     #------------------------------------BORIS------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    makeMATLAB("MixedMistakes", resultForGraphMixedMistakes['Z'], NUMBER_OF_STRINGS, NUMBER_OF_STRINGS_MAX,
-               NUMBER_OF_TOTAL_MISTAKES_MIN, NUMBER_OF_TOTAL_MISTAKES_MAX, "Number of strings", "Mixed Mistakes",
-               "Error Probability")
-
+    makeMATLAB("MixedMistakes", resultForGraphMixedMistakes['Z'], NUMBER_OF_STRINGS, NUMBER_OF_STRINGS_MAX,NUMBER_OF_TOTAL_MISTAKES_MIN, NUMBER_OF_TOTAL_MISTAKES_MAX, "Number of strings", "Mixed Mistakes","Error Probability")
     if not PYTHON_GRAPH:
         subprocess.call([r"C:\\Programs\MATLAB\R2017b\bin\matlab.exe","-nodisplay", "-nosplash", "-nodesktop", "-r","\"run('"+MUSCLE_PATH + "MixedMistakes.m')\""])
-        #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        x=1
-    if PYTHON_GRAPH:
-        num_of_mis=NUMBER_OF_TOTAL_MISTAKES_MAX + 1- NUMBER_OF_TOTAL_MISTAKES_MIN
-        dz_mix= py_plot(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS, num_of_mis, resultForGraphMixedMistakes,5, "Mixed-Mistakes")
-
-
-if PYTHON_GRAPH:
-    if FLIP_MOD: print "mean: " + format(mean(dz_flip),".4f")
-    if DELETE_MOD: print "mean: "+format(mean(dz_del),".4f")
-    if MIXED: print "mean: "+format(mean(dz_mix),".4f")
-    print_before_and_after(binarySourceString, binaryAfterMajorityString) #only the last one, for debugging
-    x = 1
-    plt.show()
+    #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     x=1
+    # if PYTHON_GRAPH:
+    #     num_of_mis=NUMBER_OF_TOTAL_MISTAKES_MAX + 1- NUMBER_OF_TOTAL_MISTAKES_MIN
+    #     dz_mix= py_plot(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS, num_of_mis, resultForGraphMixedMistakes,5, "Mixed-Mistakes")
+    #
 
+# if PYTHON_GRAPH:
+#     if FLIP_MOD: print "mean: " + format(mean(dz_flip),".4f")
+#     if DELETE_MOD: print "mean: "+format(mean(dz_del),".4f")
+#     if MIXED: print "mean: "+format(mean(dz_mix),".4f")
+#     print_before_and_after(binarySourceString, binaryAfterMajorityString) #only the last one, for debugging
+#     x = 1
+#     plt.show()
+#     x=1
+#
