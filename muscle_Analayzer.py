@@ -88,7 +88,9 @@ def calc_str_majority(arr):
         else: res.append("0")
     return res
 
-def buildArrays(binarySourceString, numberOfString, numOfGoodString=0,numberOfDeletionsInStr=0,numberOfFlipsInStr=0,numberOfStringsWithDeletions=None, numberOfStringsWithFlips=None, numberOfStringsWithMixedMistakes=None):
+
+#-----------------------------18-10-18
+def buildArrays(binarySourceString, numberOfString, numOfGoodString=0,numberOfDeletionsInStr=0,numberOfFlipsInStr=0,numberOfStringsWithDeletions=None, MixedMistakesAddMoreFlips=0,MixedMistakesAddMoreDels=0):
     arr=[]
     #boris dont forget fix this
     # if (numberOfStringsWithDeletions is None) and (numberOfStringsWithFlips is None):
@@ -100,22 +102,29 @@ def buildArrays(binarySourceString, numberOfString, numOfGoodString=0,numberOfDe
 
     for i in range(0,numberOfString):
         arr.append(binarySourceString)
-    if numberOfDeletionsInStr!=0:
-        arr=makeDeletionsInStr(arr,numberOfString,numOfGoodString,numberOfDeletionsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips,numberOfStringsWithMixedMistakes)
-    if numberOfFlipsInStr!=0:
-        arr=makeOfFlipsInStr(arr,numberOfString,numOfGoodString,numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips,numberOfStringsWithMixedMistakes)
+
+    start_index = numOfGoodString
+    end_index = numOfGoodString + numberOfStringsWithDeletions + MixedMistakesAddMoreDels
+    arr = makeDeletionsInStr(arr,start_index,end_index, numberOfDeletionsInStr)
+
+    start_index = numOfGoodString + numberOfStringsWithDeletions - MixedMistakesAddMoreFlips
+    end_index = numberOfString
+    arr = makeOfFlipsInStr(arr,start_index,end_index,numberOfFlipsInStr)
+
     return arr
 
-def makeDeletionsInStr(arr, numberOfString, numOfGoodString,numberOfDeletionsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips,numberOfStringsWithMixedMistakes):
-    for x in range(numOfGoodString, numOfGoodString + numberOfStringsWithDeletions): #17-10-18 night
+
+
+def makeDeletionsInStr(arr, start_index,end_index,numberOfDeletionsInStr):
+    for x in range(start_index, end_index):
         for j in range(numberOfDeletionsInStr):
             l=len(arr[x])
             i = random.randint(0, l-1)
             arr[x]=arr[x][:i]+arr[x][i+1:]
     return arr
 
-def makeOfFlipsInStr(arr, numberOfString, numOfGoodString,numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips,numberOfStringsWithMixedMistakes):
-    for x in range(numOfGoodString + numberOfStringsWithDeletions - numberOfStringsWithMixedMistakes ,numberOfString):
+def makeOfFlipsInStr(arr, start_index, end_index,numberOfFlipsInStr):
+    for x in range(start_index ,end_index):
         for j in range(numberOfFlipsInStr):
             l=len(arr[x])
             i = random.randint(0, l-1)
@@ -261,8 +270,9 @@ if FLIP_MOD:
             # 17-10-18 night fix
             numberOfStringsWithDeletions = 0
             numberOfStringsWithFlips = numberOfString - numOfGoodString
-            numberOfStringsWithMixedMistakes = 0
-            arr = buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr,numberOfStringsWithDeletions,numberOfStringsWithFlips, numberOfStringsWithMixedMistakes)
+            MixedMistakesAddMoreFlips = 0
+            MixedMistakesAddMoreDels = 0
+            arr = buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr,numberOfStringsWithDeletions,numberOfStringsWithFlips, MixedMistakesAddMoreFlips,MixedMistakesAddMoreDels)
             arr2FASTA(arr, 0)  # put arr in "in.txt" file
             #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out", MUSCLE_PATH + MUSCLE_OUT_FILE]);
             subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out",MUSCLE_PATH + MUSCLE_OUT_FILE])
@@ -301,8 +311,9 @@ if DELETE_MOD:
         while numberOfString <= NUMBER_OF_STRINGS_MAX:
             numberOfStringsWithDeletions = numberOfString - numOfGoodString
             numberOfStringsWithFlips = 0
-            numberOfStringsWithMixedMistakes = 0
-            arr = buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr,numberOfStringsWithDeletions,numberOfStringsWithFlips, numberOfStringsWithMixedMistakes)
+            MixedMistakesAddMoreFlips = 0
+            MixedMistakesAddMoreDels = 0
+            arr = buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr,numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips,MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels)
             arr2FASTA(arr, 1)  # put arr in "in.txt" file
             subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out",MUSCLE_PATH + MUSCLE_OUT_FILE])
             #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out",MUSCLE_PATH + MUSCLE_OUT_FILE])
@@ -346,8 +357,9 @@ if MIXED:
         while numberOfString <= NUMBER_OF_STRINGS_MAX:
             numberOfStringsWithDeletions = random.randint(0,numberOfString-numOfGoodString)
             numberOfStringsWithFlips = numberOfString - numOfGoodString - numberOfStringsWithDeletions
-            numberOfStringsWithMixedMistakes_start =(int)(numberOfStringsWithDeletions/2)
-            arr = buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips , numberOfStringsWithMixedMistakes)
+            MixedMistakesAddMoreFlips =(int)(numberOfStringsWithDeletions/2)
+            MixedMistakesAddMoreDels =  (int)(numberOfStringsWithFlips/2)
+            arr = buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr,numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips,MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels)
             arr2FASTA(arr, 1)  # put arr in "in.txt" file
             #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", MUSCLE_PATH + MUSCLE_IN_FILE, "-out",MUSCLE_PATH + MUSCLE_OUT_FILE])
             subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in",MUSCLE_PATH + MUSCLE_IN_FILE, "-out", MUSCLE_PATH + MUSCLE_OUT_FILE])
