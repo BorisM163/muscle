@@ -1,7 +1,7 @@
 #OPERETION MODS
 #python or matlab graph
-PYTHON_GRAPH=True
-GRAPH = False
+PYTHON_GRAPH=False
+GRAPH = True
 
 FLIP_MOD=False
 DELETE_MOD=True

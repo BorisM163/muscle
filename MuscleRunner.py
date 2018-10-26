@@ -41,7 +41,7 @@ def FASTA2arr(fasta_file,output_file):#take fasta file, change it to an array an
 
 
 
-def muscleCall_and_Analyze(binarySourceString,arr,resultForGraph):
+def muscleCall_and_Analyze(binarySourceString,arr):
     arr2FASTA(arr, 1)  # put arr in "in.txt" file
     #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
     #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
@@ -53,12 +53,31 @@ def muscleCall_and_Analyze(binarySourceString,arr,resultForGraph):
     output_file.close()
     fasta_file.close()
     binaryAfterMajorityString = calc_str_majority(fasta_res)
-    resultForGraph = statisticsFromMuscle(binarySourceString, binaryAfterMajorityString, resultForGraph)
-    return resultForGraph, binaryAfterMajorityString
+    errorRate = statisticsFromMuscle(binarySourceString, binaryAfterMajorityString)
+    return errorRate, binaryAfterMajorityString
 
 
 
-def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString, resultForGraph):
+# def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString, resultForGraph):
+#     counter = {"Flips": 0, "Space": 0}
+#     sourceLen =len(binarySourceString)
+#     AfterMajorityLen= (binaryAfterMajorityString)
+#     if AfterMajorityLen!=sourceLen:
+#         assert("binarySourceString and binaryAfterMajorityString are in diffrent sizes")
+#     for s,m in zip(binarySourceString,binaryAfterMajorityString):
+#         if s!=m:
+#             if m =='-':
+#                 if DEFINES.COUNT_SPACE_MISS:
+#                     counter['Space']+=1
+#             else: counter['Flips']+=1
+#     resultForGraph['Z'][-1].append((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
+#     return resultForGraph
+
+
+
+
+
+def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
     counter = {"Flips": 0, "Space": 0}
     sourceLen =len(binarySourceString)
     AfterMajorityLen= (binaryAfterMajorityString)
@@ -70,8 +89,14 @@ def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString, resultFo
                 if DEFINES.COUNT_SPACE_MISS:
                     counter['Space']+=1
             else: counter['Flips']+=1
-    resultForGraph['Z'][-1].append((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
-    return resultForGraph
+    return ((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
+
+
+
+
+
+
+
 
 
 

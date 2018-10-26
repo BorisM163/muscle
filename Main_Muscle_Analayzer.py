@@ -19,34 +19,23 @@ def multiply_elemnt(arr,mul):
         for i in range(mul):
             res.append(x)
     return res
-
-
 def multiply_array(arr,mul):
     res=[]
     for i in range(mul):
         res+=arr
     return res
-
-
 def flat_arr(arr):
     res=[]
     for x in arr:
         res+=x
     return res
-
-
 def mean(numbers):
     return float(sum(numbers)) / max(len(numbers), 1)
-
-
-
 def print_before_and_after(binarySourceString,binaryAfterMajorityString):
     # type: (object, object) -> object
     print "source: " + str(len(binarySourceString)) + "bits", "\tres: " + str(len(binaryAfterMajorityString)) + "bits"
     print binarySourceString
     print ''.join(binaryAfterMajorityString)
-
-
 def py_plotAll(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS,num_of_mis,res,g_ind,mis_name,avg,scatter,hist):
     # plot preparetion: pos=data in x axis and in y axis. *BUT* not in z axis, data in Z axis is dz_flip
     # link-histogram: https://www.youtube.com/watch?v=W94Kv8-c_5g
@@ -96,7 +85,6 @@ def py_plotAll(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS,num_of_mis,res,g_ind,mis_
         ax4.set_title(mis_name)
 
     return dz
-
 def py_barPlot(xAxis_MAX,xAxis_min,num_of_mis,res,g_ind,mis_name):
     num_of_lines=xAxis_MAX+1-xAxis_min
     xPos = multiply_array(range(xAxis_min, xAxis_MAX + 1), num_of_mis)  # number of lines
@@ -122,8 +110,6 @@ def py_barPlot(xAxis_MAX,xAxis_min,num_of_mis,res,g_ind,mis_name):
     ax3.set_ylabel(mis_name)
     ax3.set_zlabel('mistake - precent')
     ax3.set_title(mis_name)
-
-
 def py_scatterPlot(xAxis_MAX,xAxis_min,num_of_mis,res,g_ind,mis_name):
     num_of_lines=xAxis_MAX+1-xAxis_min
     xPos = multiply_array(range(xAxis_min, xAxis_MAX + 1), num_of_mis)  # number of lines
@@ -141,14 +127,15 @@ def py_scatterPlot(xAxis_MAX,xAxis_min,num_of_mis,res,g_ind,mis_name):
     ax4.set_ylabel(mis_name)
     ax4.set_zlabel('mistake - precent')
     ax4.set_title(mis_name)
-
 def write_arr2File(f,arr):#YAEL 18-10-18
     for x in arr:
         f.write(str(x)+" ")
     f.write("\n")
 
 
-def graphit(title, tipe_name,resultForGraph,string_max,strings,mis_inStr_max, mis_inStr, indx):  #YAEL 18-10-18
+
+
+def graphit(title, tipe_name, resultForGraph, string_max, strings, mis_inStr_max, mis_inStr, indx):  #YAEL 18-10-18
     MATLAB.makeMATLAB(title, resultForGraph['Z'], DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_DELETIONS_IN_STR, DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX, "Number of strings", tipe_name+" in single string", "Error Probability")
     if not DEFINES.PYTHON_GRAPH and DEFINES.GRAPH:
         MATLAB.run_MATLAB(title)
@@ -209,7 +196,7 @@ binaryLongString ="0011110100101101100011000110111000001110011011010110110110001
 avgRes=open(PATHS.MUSCLE_PATH + PATHS.FILES_PATH + PATHS.AVG_RES_FILE,'w')
 stat = open(PATHS.MUSCLE_PATH + PATHS.FILES_PATH + "statistics_MUSCLE.txt", 'w')
 
-temp_end=0;
+temp_end=100;
 time_start=datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 while(temp_end<len(binaryLongString)):
     #YAEL ------ loop statistics
@@ -217,8 +204,8 @@ while(temp_end<len(binaryLongString)):
     binarySourceString=binaryLongString[:temp_end]
 
     DEFINES.NUMBER_OF_STRINGS = 2
-    # DEFINES.NUMBER_OF_STRINGS_MAX=len(binarySourceString)
-    DEFINES.NUMBER_OF_STRINGS_MAX=15
+    DEFINES.NUMBER_OF_STRINGS_MAX=len(binarySourceString)
+    # DEFINES.NUMBER_OF_STRINGS_MAX=100
     misMax=0.1*len(binarySourceString)
     DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX=int(misMax)
     DEFINES.NUMBER_OF_FLIPS_IN_STR_MAX =int(misMax)
@@ -230,71 +217,71 @@ while(temp_end<len(binaryLongString)):
         numberOfDeletionsInStr = DEFINES.NUMBER_OF_DELETIONS_IN_STR
         numberOfFlipsInStr = DEFINES.NUMBER_OF_FLIPS_IN_STR
         numberOfString = DEFINES.NUMBER_OF_STRINGS
-        resultForGraphFlips={"X":[],"Y":[],"Z":[],"AVG":[]} #x=number of strings, y=number of filps, z=error precent, AVG = the AVG of z
+        resultForGraphFlips={"X":[],"Y":[],"Z":[]} #x=number of strings, y=number of filps, z=error precent, AVG = the AVG of z
         while numberOfFlipsInStr <= DEFINES.NUMBER_OF_FLIPS_IN_STR_MAX:
             resultForGraphFlips['Z'].append([])
             while numberOfString <= DEFINES.NUMBER_OF_STRINGS_MAX:
-                numberOfStringsWithFlips = numberOfString - numOfGoodString
-                numberOfStringsWithDeletions,MixedMistakesAddMoreFlips,MixedMistakesAddMoreDels = 0,0,0
-                arr = ArraysBuilder.buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr, numberOfStringsWithDeletions, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels)
-                resultForGraphFlips,binaryAfterMajorityString= MuscleRunner.muscleCall_and_Analyze(binarySourceString,arr, resultForGraphFlips)
+                totalErrorRate=0
+                for i in range(DEFINES.RAPEAT_TIMES):
+                    numberOfStringsWithFlips = numberOfString - numOfGoodString
+                    numberOfStringsWithDeletions,MixedMistakesAddMoreFlips,MixedMistakesAddMoreDels = 0,0,0
+                    arr = ArraysBuilder.buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr, numberOfStringsWithDeletions, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels)
+                    errorRate ,binaryAfterMajorityString= MuscleRunner.muscleCall_and_Analyze(binarySourceString,arr)
+                    totalErrorRate+=errorRate
+                # end for
+                totalErrorRate / DEFINES.RAPEAT_TIMES
+                resultForGraphFlips['Z'][-1].append(totalErrorRate/DEFINES.RAPEAT_TIMES)
                 if len(resultForGraphFlips['Z'])==1: resultForGraphFlips['X'].append(numberOfString)
                 numberOfString += DEFINES.STRING_GAP
             resultForGraphFlips['Y'].append(numberOfFlipsInStr)
-            resultForGraphFlips['AVG'].append(mean(resultForGraphFlips['Z'][-1]))
             numberOfFlipsInStr += DEFINES.FLIP_GAP
             numberOfString = DEFINES.NUMBER_OF_STRINGS
 
         graphit("FlipsGraph", "Flips", resultForGraphFlips, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_FLIPS_IN_STR_MAX, DEFINES.NUMBER_OF_FLIPS_IN_STR, 1)
         dz_flip = flat_arr(resultForGraphFlips["Z"])
         avgRes.write(str(len(binarySourceString))+"\n")
-        write_arr2File(avgRes,resultForGraphFlips['AVG'])
+        # write_arr2File(avgRes,resultForGraphFlips['AVG'])
 
     elif DEFINES.DELETE_MOD:
         numOfGoodString = DEFINES.NUMBER_OF_GOOD_STRINGS_FOR_DELETIONS
         numberOfDeletionsInStr = DEFINES.NUMBER_OF_DELETIONS_IN_STR
         numberOfFlipsInStr = DEFINES.NUMBER_OF_FLIPS_IN_STR
         numberOfString = DEFINES.NUMBER_OF_STRINGS
-        resultForGraphDeletions={"X":[],"Y":[],"Z":[],"AVG":[]} #x=number of strings, y=number of DELETIONSs, z=error precent, AVG = the AVG of z
+        resultForGraphDeletions={"X":[],"Y":[],"Z":[]} #x=number of strings, y=number of DELETIONSs, z=error precent, AVG = the AVG of z
           # x=number of strings, y=number of DELETIONSs, z=error precent, AVG = the AVG of z
-
         while numberOfDeletionsInStr <= DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX:
             resultForGraphDeletionsTemp = []
             resultForGraphDeletions['Z'].append([])
-            for i in range(DEFINES.RAPEAT_TIMES):
-                resultForGraphDeletionsTemp.append({"X": [], "Y": [], "Z": []})
-                resultForGraphDeletionsTemp[i]['Z'].append([])
-                while numberOfString <= DEFINES.NUMBER_OF_STRINGS_MAX:
+            while numberOfString <= DEFINES.NUMBER_OF_STRINGS_MAX:
+                totalErrorRate = 0
+                for i in range(DEFINES.RAPEAT_TIMES):
                     numberOfStringsWithDeletions = numberOfString - numOfGoodString
                     numberOfStringsWithFlips, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels = 0,0,0
                     arr = ArraysBuilder.buildArrays(binarySourceString, numberOfString + 1, numOfGoodString, numberOfDeletionsInStr, numberOfDeletionsInStr, numberOfStringsWithDeletions, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels)
-                    resultForGraphDeletionsTemp[i], binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr, resultForGraphDeletionsTemp[i])
-                    if len(resultForGraphDeletionsTemp[i]['Z'])==1: resultForGraphDeletionsTemp[i]['X'].append(numberOfString)
-                    numberOfString += DEFINES.STRING_GAP
+                    errorRate, binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
+                    totalErrorRate += errorRate
+                # end for
+                totalErrorRate / DEFINES.RAPEAT_TIMES
+                resultForGraphDeletions['Z'][-1].append(totalErrorRate/DEFINES.RAPEAT_TIMES)
+                if len(resultForGraphDeletions['Z'])==1: resultForGraphDeletions['X'].append(numberOfString)
+                numberOfString += DEFINES.STRING_GAP
                 # end while
-                numberOfString = DEFINES.NUMBER_OF_STRINGS
-
-                if(i==0):
-                    resultForGraphDeletions['Z'][-1] += resultForGraphDeletionsTemp[i]['Z'][-1]
-                    resultForGraphDeletions['X'] += resultForGraphDeletionsTemp[-1]['X']
-                else:
-                    resultForGraphDeletions['Z'][-1] = [a + b for a, b in zip(resultForGraphDeletions['Z'][-1],resultForGraphDeletionsTemp[i]['Z'][-1])]
-
-
-            # end for
-            resultForGraphDeletions['Z'][-1] = [x/DEFINES.RAPEAT_TIMES for x in resultForGraphDeletions['Z'][-1]]
             resultForGraphDeletions['Y'].append(numberOfDeletionsInStr)
             numberOfDeletionsInStr += DEFINES.DEL_GAP
+            numberOfString = DEFINES.NUMBER_OF_STRINGS
         # end while
         graphit("DeletionsGraph", "Deletions", resultForGraphDeletions, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX, DEFINES.NUMBER_OF_DELETIONS_IN_STR, 3)
         dz_del = flat_arr(resultForGraphDeletions["Z"])
         avgRes.write(str(len(binarySourceString))+"\n")
-        write_arr2File(avgRes,resultForGraphDeletions['AVG'])
+        # write_arr2File(avgRes,resultForGraphDeletions['AVG'])
         num_of_mis = DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX - DEFINES.NUMBER_OF_DELETIONS_IN_STR + 1
         analayze_decoderStat(len(binarySourceString), resultForGraphDeletions, stat, num_of_mis)
+
+
+
     #THIS PART IS FOR FLIPS AND DELETIONS COMBINDED ANALYZIS
     elif DEFINES.MIXED:
-        resultForGraphMixedMistakes = {"X":[],"Y": [], "Z": [],"AVG":[]}  # x=number of strings, y=number of MixedMistakes, z=error precent
+        resultForGraphMixedMistakes = {"X":[],"Y": [], "Z": []}  # x=number of strings, y=number of MixedMistakes, z=error precent
         numberOfTotalMistakes = 0
         numOfGoodString = DEFINES.NUMBER_OF_GOOD_STRINGS_FOR_MIXED
         numberOfString = DEFINES.NUMBER_OF_STRINGS
@@ -304,23 +291,29 @@ while(temp_end<len(binaryLongString)):
             numberOfFlipsInStr = numberOfTotalMistakes-numberOfDeletionsInStr
             resultForGraphMixedMistakes['Z'].append([]) #17-10-18 night
             while numberOfString <= DEFINES.NUMBER_OF_STRINGS_MAX:
-                numberOfStringsWithDeletions = random.randint(0,numberOfString-numOfGoodString)
-                numberOfStringsWithFlips = numberOfString - numOfGoodString - numberOfStringsWithDeletions
-                MixedMistakesAddMoreFlips =(int)(numberOfStringsWithDeletions/2)
-                MixedMistakesAddMoreDels =  (int)(numberOfStringsWithFlips/2)
-                arr = ArraysBuilder.buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels)
-                resultForGraphMixedMistakes,binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr, resultForGraphMixedMistakes)
+                totalErrorRate = 0
+                for i in range(DEFINES.RAPEAT_TIMES):
+                    numberOfStringsWithDeletions = random.randint(0,numberOfString-numOfGoodString)
+                    numberOfStringsWithFlips = numberOfString - numOfGoodString - numberOfStringsWithDeletions
+                    MixedMistakesAddMoreFlips =(int)(numberOfStringsWithDeletions/2)
+                    MixedMistakesAddMoreDels =  (int)(numberOfStringsWithFlips/2)
+                    arr = ArraysBuilder.buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels)
+                    errorRate,binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
+                totalErrorRate += errorRate
+                # end for
+                totalErrorRate / DEFINES.RAPEAT_TIMES
+                resultForGraphMixedMistakes['Z'][-1].append(totalErrorRate / DEFINES.RAPEAT_TIMES)
                 if len(resultForGraphMixedMistakes['Z'])==1: resultForGraphMixedMistakes['X'].append(numberOfString)
                 numberOfString += DEFINES.STRING_GAP
                 resultForGraphMixedMistakes['Y'].append(numberOfTotalMistakes)
             numberOfTotalMistakes += DEFINES.MIXED_GAP
-            resultForGraphMixedMistakes['AVG'].append(mean(resultForGraphMixedMistakes['Z'][-1]))
+            # resultForGraphMixedMistakes['AVG'].append(mean(resultForGraphMixedMistakes['Z'][-1]))
             numberOfString = DEFINES.NUMBER_OF_STRINGS
 
         graphit("MixedMistakes", "Mixed-Mistakes", resultForGraphMixedMistakes, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_TOTAL_MISTAKES_MAX, DEFINES.NUMBER_OF_TOTAL_MISTAKES_MIN, 5)
         dz_mix = flat_arr(resultForGraphMixedMistakes["Z"])
         avgRes.write(str(len(binarySourceString))+"\n")
-        write_arr2File(avgRes,resultForGraphMixedMistakes['AVG'])
+        # write_arr2File(avgRes,resultForGraphMixedMistakes['AVG'])
 
 
 print_before_and_after(binarySourceString, binaryAfterMajorityString) #only the last one, for debugging
