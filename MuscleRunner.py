@@ -41,7 +41,7 @@ def FASTA2arr(fasta_file,output_file):#take fasta file, change it to an array an
 
 
 
-def muscleCall_and_Analyze(binarySourceString,arr):
+def muscleCall_and_Analyze(binarySourceString, arr):
     arr2FASTA(arr, 1)  # put arr in "in.txt" file
     #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
     #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
