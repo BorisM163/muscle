@@ -45,7 +45,8 @@ def muscleCall_and_Analyze(binarySourceString,arr):
     arr2FASTA(arr, 1)  # put arr in "in.txt" file
     #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
     #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
-    subprocess.call([r"C:\Users\boris7\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
+    # subprocess.call([r"C:\Users\boris7\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
+    subprocess.call([r"C:\Users\boris10\Desktop\projectCSE\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
 
     fasta_file = open(PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE, 'r')  # read the output of mussle
     output_file = open(PATHS.MUSCLE_PATH + 'mussle_norm_output.txt', 'w')
