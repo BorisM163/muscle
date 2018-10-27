@@ -1,8 +1,9 @@
-#OPERETION MODS
+
 #python or matlab graph
 PYTHON_GRAPH = False
 GRAPH = False
 
+#OPERETION MODS
 FLIP_MOD = False
 DELETE_MOD = True
 MIXED = False

@@ -1,11 +1,4 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import subprocess
 import random
-import datetime
-import PATHS
-import MATLAB
-import MuscleRunner
 
 def buildArrays(binarySourceString, numberOfString, numOfGoodString=0,numberOfDeletionsInStr=0,numberOfFlipsInStr=0,numberOfStringsWithDeletions=None, MixedMistakesAddMoreFlips=0,MixedMistakesAddMoreDels=0):
     arr=[]

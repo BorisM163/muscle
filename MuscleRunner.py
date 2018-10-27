@@ -59,25 +59,6 @@ def muscleCall_and_Analyze(binarySourceString,arr):
 
 
 
-# def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString, resultForGraph):
-#     counter = {"Flips": 0, "Space": 0}
-#     sourceLen =len(binarySourceString)
-#     AfterMajorityLen= (binaryAfterMajorityString)
-#     if AfterMajorityLen!=sourceLen:
-#         assert("binarySourceString and binaryAfterMajorityString are in diffrent sizes")
-#     for s,m in zip(binarySourceString,binaryAfterMajorityString):
-#         if s!=m:
-#             if m =='-':
-#                 if DEFINES.COUNT_SPACE_MISS:
-#                     counter['Space']+=1
-#             else: counter['Flips']+=1
-#     resultForGraph['Z'][-1].append((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
-#     return resultForGraph
-
-
-
-
-
 def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
     counter = {"Flips": 0, "Space": 0}
     sourceLen =len(binarySourceString)
@@ -91,9 +72,6 @@ def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
                     counter['Space']+=1
             else: counter['Flips']+=1
     return ((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
-
-
-
 
 
 

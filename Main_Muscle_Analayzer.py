@@ -135,8 +135,8 @@ def write_arr2File(f,arr):#YAEL 18-10-18
 
 
 
-def graphit(title, tipe_name, resultForGraph, string_max, strings, mis_inStr_max, mis_inStr, indx):  #YAEL 18-10-18
-    MATLAB.makeMATLAB(title, resultForGraph['Z'], DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_DELETIONS_IN_STR, DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX, "Number of strings", tipe_name+" in single string", "Error Probability")
+def graphit(title, type_name, resultForGraph, string_max, strings, mis_inStr_max, mis_inStr, indx):  #YAEL 18-10-18
+    MATLAB.makeMATLAB(title, resultForGraph['Z'], DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_DELETIONS_IN_STR, DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX, "Number of strings", type_name+" in single string", "Error Probability")
     if not DEFINES.PYTHON_GRAPH and DEFINES.GRAPH:
         MATLAB.run_MATLAB(title)
     if DEFINES.PYTHON_GRAPH and DEFINES.GRAPH:
@@ -237,7 +237,8 @@ while temp_end < len(binaryLongString) :
             numberOfFlipsInStr += DEFINES.FLIP_GAP
             numberOfString = DEFINES.NUMBER_OF_STRINGS
 
-        graphit("FlipsGraph", "Flips", resultForGraphFlips, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_FLIPS_IN_STR_MAX, DEFINES.NUMBER_OF_FLIPS_IN_STR, 1)
+        graphit("FlipsGraph"+str(temp_end)+".strGap"+str(DEFINES.STRING_GAP)+".flipGap"+str(DEFINES.FLIP_GAP),
+                "Flips", resultForGraphFlips, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_FLIPS_IN_STR_MAX, DEFINES.NUMBER_OF_FLIPS_IN_STR, 1)
         dz_flip = flat_arr(resultForGraphFlips["Z"])
         avgRes.write(str(len(binarySourceString))+"\n")
         # write_arr2File(avgRes,resultForGraphFlips['AVG'])
@@ -270,8 +271,9 @@ while temp_end < len(binaryLongString) :
             numberOfDeletionsInStr += DEFINES.DEL_GAP
             numberOfString = DEFINES.NUMBER_OF_STRINGS
         # end while
-        graphit("DeletionsGraph"+str(temp_end), "Deletions"+str(temp_end), resultForGraphDeletions, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX, DEFINES.NUMBER_OF_DELETIONS_IN_STR, 3)
-        # dz_del = flat_arr(resultForGraphDeletions["Z"])
+        graphit("DeletionsGraph"+str(temp_end)+".strGap"+str(DEFINES.STRING_GAP)+".delGap"+str(DEFINES.DEL_GAP),
+                "Deletions", resultForGraphDeletions, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX, DEFINES.NUMBER_OF_DELETIONS_IN_STR, 3)
+        dz_del = flat_arr(resultForGraphDeletions["Z"])
         # avgRes.write(str(len(binarySourceString))+"\n")
         # # write_arr2File(avgRes,resultForGraphDeletions['AVG'])
         # num_of_mis = DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX - DEFINES.NUMBER_OF_DELETIONS_IN_STR + 1
@@ -283,13 +285,14 @@ while temp_end < len(binaryLongString) :
     elif DEFINES.MIXED:
         resultForGraphMixedMistakes = {"X":[],"Y": [], "Z": []}  # x=number of strings, y=number of MixedMistakes, z=error precent
         numberOfTotalMistakes = 0
-        numOfGoodString = DEFINES.NUMBER_OF_GOOD_STRINGS_FOR_MIXED
-        numberOfString = DEFINES.NUMBER_OF_STRINGS
+        numOfGoodString = DEFINES.NUMBER_OF_GOOD_STRINGS_FOR_MIXED # = 0
+        numberOfString = DEFINES.NUMBER_OF_STRINGS # = 2
 
         while numberOfTotalMistakes <= DEFINES.NUMBER_OF_TOTAL_MISTAKES_MAX:
+            #numberOfTotalMistakes = numberOfDeletionsInStr + numberOfFlipsInStr
             numberOfDeletionsInStr = random.randint(0,  numberOfTotalMistakes)
             numberOfFlipsInStr = numberOfTotalMistakes-numberOfDeletionsInStr
-            resultForGraphMixedMistakes['Z'].append([]) #17-10-18 night
+            resultForGraphMixedMistakes['Z'].append([])
             while numberOfString <= DEFINES.NUMBER_OF_STRINGS_MAX:
                 totalErrorRate = 0
                 for i in range(DEFINES.RAPEAT_TIMES):
@@ -310,7 +313,8 @@ while temp_end < len(binaryLongString) :
             # resultForGraphMixedMistakes['AVG'].append(mean(resultForGraphMixedMistakes['Z'][-1]))
             numberOfString = DEFINES.NUMBER_OF_STRINGS
 
-        graphit("MixedMistakes", "Mixed-Mistakes", resultForGraphMixedMistakes, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_TOTAL_MISTAKES_MAX, DEFINES.NUMBER_OF_TOTAL_MISTAKES_MIN, 5)
+        graphit("MixedMistakes"+str(temp_end)+".strGap"+str(DEFINES.STRING_GAP)+".mstkGap"+str(DEFINES.MIXED_GAP),
+                "MixedMistakes",resultForGraphMixedMistakes, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_TOTAL_MISTAKES_MAX, DEFINES.NUMBER_OF_TOTAL_MISTAKES_MIN, 5)
         dz_mix = flat_arr(resultForGraphMixedMistakes["Z"])
         avgRes.write(str(len(binarySourceString))+"\n")
         # write_arr2File(avgRes,resultForGraphMixedMistakes['AVG'])
