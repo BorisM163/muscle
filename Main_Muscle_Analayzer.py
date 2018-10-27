@@ -237,7 +237,7 @@ while temp_end < len(binaryLongString) :
             numberOfFlipsInStr += DEFINES.FLIP_GAP
             numberOfString = DEFINES.NUMBER_OF_STRINGS
 
-        graphit("FlipsGraph"+str(temp_end)+".strGap"+str(DEFINES.STRING_GAP)+".flipGap"+str(DEFINES.FLIP_GAP),
+        graphit("FlipsGraph"+str(temp_end)+"_strGap"+str(DEFINES.STRING_GAP)+"_flipGap"+str(DEFINES.FLIP_GAP),
                 "Flips", resultForGraphFlips, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_FLIPS_IN_STR_MAX, DEFINES.NUMBER_OF_FLIPS_IN_STR, 1)
         dz_flip = flat_arr(resultForGraphFlips["Z"])
         avgRes.write(str(len(binarySourceString))+"\n")
@@ -271,7 +271,7 @@ while temp_end < len(binaryLongString) :
             numberOfDeletionsInStr += DEFINES.DEL_GAP
             numberOfString = DEFINES.NUMBER_OF_STRINGS
         # end while
-        graphit("DeletionsGraph"+str(temp_end)+".strGap"+str(DEFINES.STRING_GAP)+".delGap"+str(DEFINES.DEL_GAP),
+        graphit("DeletionsGraph"+str(temp_end)+"_strGap"+str(DEFINES.STRING_GAP)+"_delGap"+str(DEFINES.DEL_GAP),
                 "Deletions", resultForGraphDeletions, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX, DEFINES.NUMBER_OF_DELETIONS_IN_STR, 3)
         dz_del = flat_arr(resultForGraphDeletions["Z"])
         # avgRes.write(str(len(binarySourceString))+"\n")
@@ -317,7 +317,7 @@ while temp_end < len(binaryLongString) :
             # resultForGraphMixedMistakes['AVG'].append(mean(resultForGraphMixedMistakes['Z'][-1]))
             numberOfString = DEFINES.NUMBER_OF_STRINGS
 
-        graphit("MixedMistakes"+str(temp_end)+".strGap"+str(DEFINES.STRING_GAP)+".mstkGap"+str(DEFINES.MIXED_GAP),
+        graphit("MixedMistakes"+str(temp_end)+"_strGap"+str(DEFINES.STRING_GAP)+"_mstkGap"+str(DEFINES.MIXED_GAP),
                 "MixedMistakes",resultForGraphMixedMistakes, DEFINES.NUMBER_OF_STRINGS_MAX, DEFINES.NUMBER_OF_STRINGS, DEFINES.NUMBER_OF_TOTAL_MISTAKES_MAX, DEFINES.NUMBER_OF_TOTAL_MISTAKES_MIN, 5)
         dz_mix = flat_arr(resultForGraphMixedMistakes["Z"])
         avgRes.write(str(len(binarySourceString))+"\n")
