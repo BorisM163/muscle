@@ -196,15 +196,15 @@ binaryLongString ="0011110100101101100011000110111000001110011011010110110110001
 avgRes=open(PATHS.MUSCLE_PATH + PATHS.FILES_PATH + PATHS.AVG_RES_FILE,'w')
 stat = open(PATHS.MUSCLE_PATH + PATHS.FILES_PATH + "statistics_MUSCLE.txt", 'w')
 
-temp_end = 0
+temp_end = 100
 time_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 while temp_end < len(binaryLongString) :
     #YAEL ------ loop statistics
-    temp_end += 100
+    temp_end += 50
     binarySourceString=binaryLongString[:temp_end]
 
     DEFINES.NUMBER_OF_STRINGS = 2
-    DEFINES.NUMBER_OF_STRINGS_MAX = len(binarySourceString)
+    DEFINES.NUMBER_OF_STRINGS_MAX = 10
     # DEFINES.NUMBER_OF_STRINGS_MAX=100
     misMax = 0.1*len(binarySourceString)
     DEFINES.NUMBER_OF_DELETIONS_IN_STR_MAX= int(misMax)
@@ -300,7 +300,11 @@ while temp_end < len(binaryLongString) :
                     numberOfStringsWithFlips = numberOfString - numOfGoodString - numberOfStringsWithDeletions
                     MixedMistakesAddMoreFlips =(int)(numberOfStringsWithDeletions/2)
                     MixedMistakesAddMoreDels =  (int)(numberOfStringsWithFlips/2)
-                    arr = ArraysBuilder.buildArrays(binarySourceString, numberOfString, numOfGoodString, numberOfDeletionsInStr, numberOfFlipsInStr, numberOfStringsWithDeletions, numberOfStringsWithFlips, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels)
+                    numberOfStringsWithFlips, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels = 0, 0, 0
+                    arr = ArraysBuilder.buildArrays(binarySourceString, numberOfString, numOfGoodString,
+                                                    numberOfDeletionsInStr, numberOfDeletionsInStr,
+                                                    numberOfStringsWithDeletions, MixedMistakesAddMoreFlips,
+                                                    MixedMistakesAddMoreDels)
                     errorRate,binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
                 totalErrorRate += errorRate
                 # end for

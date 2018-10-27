@@ -1,12 +1,12 @@
 
 #python or matlab graph
 PYTHON_GRAPH = False
-GRAPH = False
+GRAPH = True
 
 #OPERETION MODS
 FLIP_MOD = False
-DELETE_MOD = True
-MIXED = False
+DELETE_MOD = False
+MIXED = True
 
 #count space as a mistake
 COUNT_SPACE_MISS = False

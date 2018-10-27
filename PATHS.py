@@ -2,8 +2,8 @@
 
 #MUSCLE_PATH ="/home/ubu/Yael/"#muscle3.8.31_i86linux64"   #Lab
 #MUSCLE_PATH ="C:/Users/moshab/Desktop/final project/muscle/"  #Boris_computer
-#MUSCLE_PATH ="C:/Users/boris7/Desktop/final project/muscle/"  #Boris_computer2
-MUSCLE_PATH ="C:/Users/boris10/Desktop/projectCSE/muscle/"  #Boris_computer3
+MUSCLE_PATH ="C:/Users/boris7/Desktop/final project/muscle/"  #Boris_computer2
+#MUSCLE_PATH ="C:/Users/boris10/Desktop/projectCSE/muscle/"  #Boris_computer3
 
 
 
