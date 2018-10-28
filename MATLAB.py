@@ -1,11 +1,11 @@
-import PATHS
+import DEFINES
 import subprocess
 
 
 def makeMATLAB(fileName,listList,minX,maxX, minY,maxY,xlabel,ylabel,zlabel):
     # this code make anylezation of the muscle tool using MATLAB
     #https://stackoverflow.com/questions/6657005/matlab-running-an-m-file-from-command-line
-    f=open(PATHS.MUSCLE_PATH + fileName + ".m", 'w')
+    f=open(DEFINES.MUSCLE_PATH + fileName + ".m", 'w')
     f.write("[X,Y] = meshgrid("+str(minX)+":"+str(maxX)+","+str(minY) +":"+str(maxY)+");\n")
     f.write("Z=[")
     for list in listList:
@@ -36,6 +36,6 @@ def makeMATLAB(fileName,listList,minX,maxX, minY,maxY,xlabel,ylabel,zlabel):
 
 
 def run_MATLAB(title):
-    subprocess.call([r"C:\\Programs\MATLAB\R2017b\bin\matlab.exe", "-nodisplay", "-nosplash", "-nodesktop", "-r","\"run('" + PATHS.MUSCLE_PATH + title + ".m')\""])
+    subprocess.call([r"C:\\Programs\MATLAB\R2017b\bin\matlab.exe", "-nodisplay", "-nosplash", "-nodesktop", "-r","\"run('" + DEFINES.MUSCLE_PATH + title + ".m')\""])
 
 

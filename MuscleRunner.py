@@ -1,11 +1,10 @@
 import DEFINES
-import PATHS
 import subprocess
 
 def arr2FASTA(arr,form): #take an array and poot in fasta format
     #if form==1: it is DNA form.
     #if form==0 it is protain form
-    fasta_file=open(PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE,'w')
+    fasta_file=open(DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE,'w')
     if form == 1: str_form=">gi|"
     else: str_form =">AB"
     i=1
@@ -43,13 +42,13 @@ def FASTA2arr(fasta_file,output_file):#take fasta file, change it to an array an
 
 def muscleCall_and_Analyze(binarySourceString, arr):
     arr2FASTA(arr, 1)  # put arr in "in.txt" file
-    #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
-    #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
-    subprocess.call([r"C:\Users\boris7\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
-   # subprocess.call([r"C:\Users\boris10\Desktop\projectCSE\muscle\muscle3.8.31_i86win32.exe", "-in", PATHS.MUSCLE_PATH + PATHS.MUSCLE_IN_FILE, "-out", PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE])
+    subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
+    #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
+    # subprocess.call([r"C:\Users\boris7\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
+   # subprocess.call([r"C:\Users\boris10\Desktop\projectCSE\muscle\muscle3.8.31_i86win32.exe", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
 
-    fasta_file = open(PATHS.MUSCLE_PATH + PATHS.MUSCLE_OUT_FILE, 'r')  # read the output of mussle
-    output_file = open(PATHS.MUSCLE_PATH + 'mussle_norm_output.txt', 'w')
+    fasta_file = open(DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE, 'r')  # read the output of mussle
+    output_file = open(DEFINES.MUSCLE_PATH + 'mussle_norm_output.txt', 'w')
     fasta_res = FASTA2arr(fasta_file, output_file)
     output_file.close()
     fasta_file.close()
@@ -72,9 +71,6 @@ def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
                     counter['Space']+=1
             else: counter['Flips']+=1
     return ((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
-
-
-
 
 
 
