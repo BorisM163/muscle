@@ -11,7 +11,7 @@ import MuscleRunner
 import ArraysBuilder
 import DEFINES
 
-#shalom any yael lustig yim y
+#shalom any yael lustig yim y2
 
 def multiply_elemnt(arr,mul):
     res=[]
