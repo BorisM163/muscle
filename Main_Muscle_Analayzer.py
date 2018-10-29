@@ -216,8 +216,6 @@ while temp_end < len(binaryLongString) :
                                                     MixedMistakesAddMoreDels=MixedMistakesAddMoreDels)
                     errorRate, binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
                     totalErrorRate += errorRate
-                    errorRate,binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
-                totalErrorRate += errorRate
                 # end for
                 resultForGraphMixedMistakes['Z'][-1].append(totalErrorRate / DEFINES.RAPEAT_TIMES)
                 if len(resultForGraphMixedMistakes['Z'])==1: resultForGraphMixedMistakes['X'].append(numberOfString)
