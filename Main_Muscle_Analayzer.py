@@ -188,47 +188,55 @@ while temp_end < len(binaryLongString) :
         num_of_mis = NUMBER_OF_RANDOM_DELETIONS_IN_STR_MAX - NUMBER_OF_RANDOM_DELETIONS_IN_STR_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN,len(binarySourceString), resultForGraphRandomDeletions, num_of_mis)
 
-    # #THIS PART IS FOR FLIPS AND DELETIONS COMBINDED ANALYZIS
-    # elif DEFINES.MIXED:
-    #     resultForGraphMixedMistakes = {"X":[],"Y": [], "Z": []}  # x=number of strings, y=number of MixedMistakes, z=error precent
-    #     numberOfTotalMistakes = 0
-    #     numOfGoodString = DEFINES.NUMBER_OF_GOOD_STRINGS_FOR_MIXED # = 0
-    #     numberOfString = NUMBER_OF_STRINGS_MIN # = 2
-    #
-    #     while numberOfTotalMistakes <= DEFINES.NUMBER_OF_TOTAL_MISTAKES_MAX:
-    #         #numberOfTotalMistakes = numberOfDeletionsInStr + numberOfFlipsInStr
-    #         numberOfDeletionsInStr = random.randint(0,  numberOfTotalMistakes)
-    #         numberOfFlipsInStr = numberOfTotalMistakes-numberOfDeletionsInStr
-    #         resultForGraphMixedMistakes['Z'].append([])
-    #         while numberOfString <= NUMBER_OF_STRINGS_MAX:
-    #             totalErrorRate = 0
-    #             for i in range(DEFINES.RAPEAT_TIMES):
-    #                 numberOfStringsWithDeletions = random.randint(0,numberOfString-numOfGoodString)
-    #                 numberOfStringsWithFlips = numberOfString - numOfGoodString - numberOfStringsWithDeletions
-    #                 MixedMistakesAddMoreFlips =(int)(numberOfStringsWithDeletions/2)
-    #                 MixedMistakesAddMoreDels =  (int)(numberOfStringsWithFlips/2)
-    #                 numberOfStringsWithFlips, MixedMistakesAddMoreFlips, MixedMistakesAddMoreDels = 0, 0, 0
-    #                 arr = ArraysBuilder.buildArrays(binarySourceString, numberOfString, numOfGoodString,
-    #                                                 numberOfDeletionsInStr, numberOfDeletionsInStr,
-    #                                                 numberOfStringsWithDeletions, MixedMistakesAddMoreFlips,
-    #                                                 MixedMistakesAddMoreDels)
-    #                 errorRate,binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
-    #             totalErrorRate += errorRate
-    #             # end for
-    #             totalErrorRate / DEFINES.RAPEAT_TIMES
-    #             resultForGraphMixedMistakes['Z'][-1].append(totalErrorRate / DEFINES.RAPEAT_TIMES)
-    #             if len(resultForGraphMixedMistakes['Z'])==1: resultForGraphMixedMistakes['X'].append(numberOfString)
-    #             numberOfString += STRING_GAP
-    #             resultForGraphMixedMistakes['Y'].append(numberOfTotalMistakes)
-    #         numberOfTotalMistakes += MIXED_GAP
-    #         # resultForGraphMixedMistakes['AVG'].append(mean(resultForGraphMixedMistakes['Z'][-1]))
-    #         numberOfString = NUMBER_OF_STRINGS_MIN
-    #
-    #     Plots.graphit("MixedMistakes"+str(temp_end)+"_strGap"+str(STRING_GAP)+"_mstkGap"+str(MIXED_GAP),
-    #             "MixedMistakes",resultForGraphMixedMistakes, NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS_MIN, NUMBER_OF_TOTAL_MISTAKES_MAX, NUMBER_OF_TOTAL_MISTAKES_MIN, 5)
-    #     dz_mix = flat_arr(resultForGraphMixedMistakes["Z"])
-    # num_of_mis = NUMBER_OF_TOTAL_MISTAKES_MAX - NUMBER_OF_TOTAL_MISTAKES_MIN + 1
-    # analayze_decoderStat(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS_MIN, len(binarySourceString), resultForGraphMixedMistakes, num_of_mis)
+    #THIS PART IS FOR FLIPS AND DELETIONS COMBINDED ANALYZIS
+    elif DEFINES.MIXED:
+        resultForGraphMixedMistakes = {"X":[],"Y": [], "Z": []}  # x=number of strings, y=number of MixedMistakes, z=error precent
+        numberOfTotalMistakes = NUMBER_OF_TOTAL_MISTAKES_MIN
+        numberOfString = NUMBER_OF_STRINGS_MIN # = 2
+        while numberOfTotalMistakes <= DEFINES.NUMBER_OF_TOTAL_MISTAKES_MAX:
+            #numberOfTotalMistakes = numberOfDeletionsInStr + numberOfFlipsInStr
+            numberOfDeletionsInStr = random.randint(0,  numberOfTotalMistakes)
+            numberOfFlipsInStr = numberOfTotalMistakes-numberOfDeletionsInStr
+            resultForGraphMixedMistakes['Z'].append([])
+            while numberOfString <= NUMBER_OF_STRINGS_MAX:
+                totalErrorRate = 0
+                for i in range(DEFINES.RAPEAT_TIMES):
+                    numOfGoodString=0
+                    numberOfStringsWithDeletions = random.randint(0, numberOfString - numOfGoodString)
+                    numberOfStringsWithFlips = numberOfString - numOfGoodString - numberOfStringsWithDeletions
+                    MixedMistakesAddMoreFlips = (int)(numberOfStringsWithDeletions / 2)
+                    MixedMistakesAddMoreDels = (int)(numberOfStringsWithFlips / 2)
+                    arr = ArraysBuilder.buildArrays(binarySourceString=binarySourceString,
+                                                    numberOfString=numberOfString,
+                                                    numOfGoodString=numOfGoodString,
+                                                    numberOfDeletionsInStr=numberOfDeletionsInStr,
+                                                    numberOfFlipsInStr=numberOfDeletionsInStr,
+                                                    numberOfStringsWithDeletions=numberOfStringsWithDeletions,
+                                                    MixedMistakesAddMoreFlips=MixedMistakesAddMoreFlips,
+                                                    MixedMistakesAddMoreDels=MixedMistakesAddMoreDels)
+                    errorRate, binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
+                    totalErrorRate += errorRate
+                    errorRate,binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
+                totalErrorRate += errorRate
+                # end for
+                resultForGraphMixedMistakes['Z'][-1].append(totalErrorRate / DEFINES.RAPEAT_TIMES)
+                if len(resultForGraphMixedMistakes['Z'])==1: resultForGraphMixedMistakes['X'].append(numberOfString)
+                numberOfString += STRING_GAP
+                resultForGraphMixedMistakes['Y'].append(numberOfTotalMistakes)
+            numberOfTotalMistakes += MIXED_GAP
+            numberOfString = NUMBER_OF_STRINGS_MIN
+
+        Plots.graphit(title="MixedMistakes"+str(temp_end)+"_strGap"+str(STRING_GAP)+"_mstkGap"+str(MIXED_GAP),
+                      type_name = "MixedMistakes",
+                      resultForGraph=resultForGraphMixedMistakes,
+                      max_strings=NUMBER_OF_STRINGS_MAX,
+                      min_strings=NUMBER_OF_STRINGS_MIN,
+                      mistkaes_inStr_max=NUMBER_OF_TOTAL_MISTAKES_MAX,
+                      mistkaes_inStr_min=NUMBER_OF_TOTAL_MISTAKES_MIN,
+                      indx=5)
+        dz_mix = flat_arr(resultForGraphMixedMistakes["Z"])
+    num_of_mis = NUMBER_OF_TOTAL_MISTAKES_MAX - NUMBER_OF_TOTAL_MISTAKES_MIN + 1
+    analayze_decoderStat(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS_MIN, len(binarySourceString), resultForGraphMixedMistakes, num_of_mis)
 
 
 
