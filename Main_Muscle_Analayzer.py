@@ -43,7 +43,7 @@ def analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN, strLen,res
 
 
 ############################################ MAIM ############################################
-binaryLongString ="110001101111111010011100111000011001110111111100111100001110101011011111111001110111111011011100111111001111100011100011111000011010101101100110100011000101101101110010011000011101000111100111101101101001111010111001011101101110101111100111110011110010011100111101100110010011001011100010110010111100111101110110111011011101100111111000011001011110011110010011011101110100111001011100101110110111100111100111110101110100111100001111001111011111000011110100111000011001101101111110010111011001110100110100011100101101111111011111010001100110110010111110001101100111011111001001111001111001111101101110011111000011101111101100110"
+binaryLongString ="110001101111111010011100111000011001110111111100111100001110101011011111111001110111111011011100111111001111100011100011111000011010101101100110100011000101101101110010011000011101000111100111101101101001111010111001011101101110101111100111110011110010011100111101100110010011001011100010110010111100111101110110111011011101100111111000011001011110011110010011011101110100111001011100101110110111100111100111110101110100111100001111001111011111000011110100111000011001101101111110010111011001110100110100011100101101111111011111010001100110110010111110001101100111011111001001111001111001111101101110"
 y=len(binaryLongString)
 x=1
 temp_end = 200
@@ -57,13 +57,13 @@ while temp_end < len(binaryLongString) :
     NUMBER_OF_STRINGS_MAX = int(0.75*len(binarySourceString))
     misMax = 0.1*len(binarySourceString)
     NUMBER_OF_DELETIONS_IN_STR_MIN= 0
-    NUMBER_OF_DELETIONS_IN_STR_MAX= 5 #int(misMax)
+    NUMBER_OF_DELETIONS_IN_STR_MAX= int(misMax)
     NUMBER_OF_RANDOM_DELETIONS_IN_STR_MIN = 0
     NUMBER_OF_RANDOM_DELETIONS_IN_STR_MAX = int(misMax)
     NUMBER_OF_FLIPS_IN_STR_MIN=0
     NUMBER_OF_FLIPS_IN_STR_MAX = 5#int(misMax)
     NUMBER_OF_TOTAL_MISTAKES_MIN = 0
-    NUMBER_OF_TOTAL_MISTAKES_MAX = int(misMax)
+    NUMBER_OF_TOTAL_MISTAKES_MAX =  int(misMax)
 
     STRING_GAP = 20
     DEL_GAP = 1
@@ -193,14 +193,14 @@ while temp_end < len(binaryLongString) :
         resultForGraphMixedMistakes = {"X":[],"Y": [], "Z": []}  # x=number of strings, y=number of MixedMistakes, z=error precent
         numberOfTotalMistakes = NUMBER_OF_TOTAL_MISTAKES_MIN
         numberOfString = NUMBER_OF_STRINGS_MIN # = 2
-        while numberOfTotalMistakes <= DEFINES.NUMBER_OF_TOTAL_MISTAKES_MAX:
+        while numberOfTotalMistakes <= NUMBER_OF_TOTAL_MISTAKES_MAX:
             #numberOfTotalMistakes = numberOfDeletionsInStr + numberOfFlipsInStr
             numberOfDeletionsInStr = random.randint(0,  numberOfTotalMistakes)
             numberOfFlipsInStr = numberOfTotalMistakes-numberOfDeletionsInStr
             resultForGraphMixedMistakes['Z'].append([])
             while numberOfString <= NUMBER_OF_STRINGS_MAX:
                 totalErrorRate = 0
-                for i in range(DEFINES.RAPEAT_TIMES):
+                for i in range(RAPEAT_TIMES):
                     numOfGoodString=0
                     numberOfStringsWithDeletions = random.randint(0, numberOfString - numOfGoodString)
                     numberOfStringsWithFlips = numberOfString - numOfGoodString - numberOfStringsWithDeletions
@@ -217,7 +217,7 @@ while temp_end < len(binaryLongString) :
                     errorRate, binaryAfterMajorityString = MuscleRunner.muscleCall_and_Analyze(binarySourceString, arr)
                     totalErrorRate += errorRate
                 # end for
-                resultForGraphMixedMistakes['Z'][-1].append(totalErrorRate / DEFINES.RAPEAT_TIMES)
+                resultForGraphMixedMistakes['Z'][-1].append(totalErrorRate / RAPEAT_TIMES)
                 if len(resultForGraphMixedMistakes['Z'])==1: resultForGraphMixedMistakes['X'].append(numberOfString)
                 numberOfString += STRING_GAP
                 resultForGraphMixedMistakes['Y'].append(numberOfTotalMistakes)
@@ -233,8 +233,8 @@ while temp_end < len(binaryLongString) :
                       mistkaes_inStr_min=NUMBER_OF_TOTAL_MISTAKES_MIN,
                       indx=5)
         dz_mix = flat_arr(resultForGraphMixedMistakes["Z"])
-    num_of_mis = NUMBER_OF_TOTAL_MISTAKES_MAX - NUMBER_OF_TOTAL_MISTAKES_MIN + 1
-    analayze_decoderStat(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS_MIN, len(binarySourceString), resultForGraphMixedMistakes, num_of_mis)
+        num_of_mis = NUMBER_OF_TOTAL_MISTAKES_MAX - NUMBER_OF_TOTAL_MISTAKES_MIN + 1
+        analayze_decoderStat(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS_MIN, len(binarySourceString), resultForGraphMixedMistakes, num_of_mis)
 
 
 
