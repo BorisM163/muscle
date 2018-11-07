@@ -5,9 +5,9 @@ GRAPH_MID = False #mid graphs
 
 #OPERETION MODS
 FLIP_MOD = False
-DELETE_MOD =False
+DELETE_MOD = True
 MIXED = False
-RANDOM_DELETIONS= True
+RANDOM_DELETIONS= False
 
 #count space as a mistake
 COUNT_SPACE_MISS = False
