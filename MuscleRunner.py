@@ -39,7 +39,7 @@ def FASTA2arr(fasta_file,output_file):#take fasta file, change it to an array an
     return arr
 
 
-
+#call muscle and decide about the final string (with majority algorithm), and the error rate
 def muscleCall_and_Analyze(binarySourceString, arr):
     arr2FASTA(arr, 1)  # put arr in "in.txt" file
     subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
@@ -57,7 +57,7 @@ def muscleCall_and_Analyze(binarySourceString, arr):
     return errorRate, binaryAfterMajorityString
 
 
-
+#return the error preecent. #COUNT_SPACE_MISS=True -> calc "-" as an error
 def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
     counter = {"Flips": 0, "Space": 0}
     sourceLen =len(binarySourceString)
@@ -75,7 +75,7 @@ def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
 
 
 
-def calc_str_majority(arr):
+def calc_str_majority(arr):#calc the final out of the majority of the samples
     length=[]; res=[]; i=-1
     for line in arr: length.append(len(line))
     while(i<max(length)-1):
