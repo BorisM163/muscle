@@ -1,6 +1,6 @@
 import random
 
-
+#this function build 2d-array with random number of deletions in each strings
 def buildArraysRandomDeletions(binarySourceString, numberOfString, numOfGoodString=0,numberOfDeletionsInStr=0,numberOfFlipsInStr=0,numberOfStringsWithDeletions=None, MixedMistakesAddMoreFlips=0,MixedMistakesAddMoreDels=0):
     arr=[]
     #boris dont forget fix cheacking bugs
@@ -22,7 +22,7 @@ def buildArraysRandomDeletions(binarySourceString, numberOfString, numOfGoodStri
 
 
 
-
+#this function build the fight array (with the mistakes and the good string, forall modes)
 def buildArrays(binarySourceString, numberOfString, numOfGoodString=0,numberOfDeletionsInStr=0,numberOfFlipsInStr=0,numberOfStringsWithDeletions=None, MixedMistakesAddMoreFlips=0,MixedMistakesAddMoreDels=0):
     arr=[]
     #boris dont forget fix cheacking bugs
@@ -36,7 +36,7 @@ def buildArrays(binarySourceString, numberOfString, numOfGoodString=0,numberOfDe
     arr = makeOfFlipsInStr(arr,start_index,end_index,numberOfFlipsInStr)
     return arr
 
-
+#this function get a 2-dimentional array, and start+end rows to make random #numberOfDeletionsInStr del in each string
 def makeDeletionsInStr(arr, start_index,end_index,numberOfDeletionsInStr):
     for x in range(start_index, end_index):
         for j in range(numberOfDeletionsInStr):
@@ -45,7 +45,7 @@ def makeDeletionsInStr(arr, start_index,end_index,numberOfDeletionsInStr):
             arr[x]=arr[x][:i]+arr[x][i+1:]
     return arr
 
-
+#this function get a 2-dimentional array, and start+end rows to make random #numberOfFlipsInStr flips in each string
 def makeOfFlipsInStr(arr, start_index, end_index,numberOfFlipsInStr):
     for x in range(start_index ,end_index):
         for j in range(numberOfFlipsInStr):
