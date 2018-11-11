@@ -3,14 +3,14 @@ import numpy as np
 import MATLAB
 import DEFINES
 
-def multiply_elemnt(arr,mul):
+def multiply_elemnt(arr,mul): #multiply each ellement by #mul times. 
     res=[]
     for x in arr:
         for i in range(mul):
             res.append(x)
     return res
 
-def multiply_array(arr,mul):
+def multiply_array(arr,mul): #cat the whole array to itself #mul times. (lenarray ---> mul*lenarray)
     res=[]
     for i in range(mul):
         res+=arr
@@ -21,6 +21,7 @@ def flat_arr(arr):
     for x in arr: res+=x
     return res
 
+#plot mistakes graph- scatter\bars (can describe avg) 
 def py_plotAll(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS,num_of_mis,res,g_ind,mis_name,avg,scatter,hist):
     # plot preparetion: pos=data in x axis and in y axis. *BUT* not in z axis, data in Z axis is dz_flip
     # link-histogram: https://www.youtube.com/watch?v=W94Kv8-c_5g
