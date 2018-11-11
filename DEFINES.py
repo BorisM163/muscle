@@ -1,7 +1,7 @@
 
 #python or matlab graph
 PYTHON_GRAPH = True
-GRAPH_MID = False #mid graphs
+GRAPH_MID = False #mid graphs - plot a graph after each run. 
 
 #OPERETION MODS
 FLIP_MOD = False
@@ -20,8 +20,8 @@ MUSCLE_PATH ="/home/ubu/Yael/"#muscle3.8.31_i86linux64"   #Lab
 #MUSCLE_PATH ="C:/Users/boris7/Desktop/final project/muscle/"  #Boris_computer2
 #MUSCLE_PATH ="C:/Users/boris10/Desktop/projectCSE/muscle/"  #Boris_computer3
 
-FILES_PATH= "project/reasults/"#YAEL 18-10-18
-AVG_RES_FILE="avg_muscle.txt"#YAEL 18-10-18
+FILES_PATH= "project/reasults/"#YAEL 
+AVG_RES_FILE="avg_muscle.txt"#YAEL 
 
-MUSCLE_IN_FILE = "in.txt"
-MUSCLE_OUT_FILE = "out.txt"
+MUSCLE_IN_FILE = "in.txt" # in file is the samples file, FASTA file
+MUSCLE_OUT_FILE = "out.txt" #out file is the ordered strings file
