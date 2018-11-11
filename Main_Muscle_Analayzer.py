@@ -12,22 +12,23 @@ import Plots
 
 #shalom any yael lustig yim y2
 
-def flat_arr(arr):
+def flat_arr(arr): # this method flats a 2 dimentional array
     res=[]
     for x in arr:
         res+=x
     return res
-def mean(numbers):
+def mean(numbers): #calc mean
     return float(sum(numbers)) / max(len(numbers), 1)
 def print_before_and_after(binarySourceString,binaryAfterMajorityString):
     # type: (object, object) -> object
     print "source: " + str(len(binarySourceString)) + "bits", "\tres: " + str(len(binaryAfterMajorityString)) + "bits"
     print binarySourceString
     print ''.join(binaryAfterMajorityString)
-def write_arr2File(f,arr):#YAEL 18-10-18
+def write_arr2File(f,arr):
     for x in arr:
         f.write(str(x)+" ")
     f.write("\n")
+#this method classifiy 90%, 95%, 99% success and put in a file (this is for graphs)
 def analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN, strLen,resultForGraph,num_of_mis):
     i = 0; j=0;
     tempRes = {"Z": [],"X":[]}; j+=1
