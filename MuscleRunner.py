@@ -53,7 +53,11 @@ def muscleCall_and_Analyze(binarySourceString, arr):
     output_file.close()
     fasta_file.close()
     binaryAfterMajorityString = calc_str_majority(fasta_res)
-    errorRate = statisticsFromMuscle(binarySourceString, binaryAfterMajorityString)
+    if DEFINES.OVERCOME_SPACE:
+        errorRate = statisticsFromMuscle_GapSpace(binarySourceString, binaryAfterMajorityString)
+    else:
+        errorRate = statisticsFromMuscle(binarySourceString, binaryAfterMajorityString)
+
     return errorRate, binaryAfterMajorityString
 
 
@@ -64,6 +68,8 @@ def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
     AfterMajorityLen= (binaryAfterMajorityString)
     if AfterMajorityLen!=sourceLen:
         assert("binarySourceString and binaryAfterMajorityString are in diffrent sizes")
+        print("binarySourceString and binaryAfterMajorityString are in diffrent sizes")
+        #return
     for s,m in zip(binarySourceString,binaryAfterMajorityString):
         if s!=m:
             if m =='-':
@@ -73,6 +79,53 @@ def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
     return ((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
 
 
+#return the error preecent. 
+#this function supose to be smarter and caculate the possible error probebility
+def statisticsFromMuscle_GapSpace(binarySourceString, binaryAfterMajorityString):
+    counter = {"Flips": 0, "Space": 0}
+    sourceLen =len(binarySourceString)
+    AfterMajorityLen= (binaryAfterMajorityString)
+    if AfterMajorityLen!=sourceLen:
+        print("binarySourceString and binaryAfterMajorityString are in diffrent sizes")
+    j=0; k=0;c=0;
+    for i in range(len(binaryAfterMajorityString)):
+        if j<(len(binarySourceString)-1) and k< (len(binaryAfterMajorityString)-1):
+            if binaryAfterMajorityString[k]!=binarySourceString[j]:
+                if binaryAfterMajorityString[k] =="-":
+                    c+=1
+                    if(flip_counter(binarySourceString[j:],(binaryAfterMajorityString[k+1:]))<flip_counter(binarySourceString[j:],binaryAfterMajorityString[k:])):
+                          j-=1
+                          k-=1
+                          binaryAfterMajorityString=binaryAfterMajorityString[:k]+binaryAfterMajorityString[k+1:]
+                          print "without: "+str(k)
+                          print str(binarySourceString[j+1:(j+1 + 30)])
+                          st = ''.join(binaryAfterMajorityString[k:(k + 30)])
+                          print st
+                    else:
+                        print "good: " +str(k)
+                        print str(binarySourceString[j:(j+30)])
+                        st=''.join(binaryAfterMajorityString[k:(k+30)])
+                        print st
+                else:
+                    counter['Flips']+=1
+        j+=1; k+=1
+    print "after stat - overcome space reasults:"
+    st=''.join(binaryAfterMajorityString)
+    print binarySourceString
+    print st
+    return ((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
+
+#count only the flips between 2 string, until there is "-" (after some "0101...")
+# this function is used in statisticsFromMuscle_GapSpace
+def flip_counter(binarySourceString,binaryAfterMajorityString):
+    flips=0; first=True
+    for s,m in zip(binarySourceString,binaryAfterMajorityString):
+        if m=="-":
+            if not first: return flips
+        else: first=False
+        if (m=="0" and s=="1") or (s=="0" and m=="1"):
+            flips+=1
+    return flips
 
 
 def calc_str_majority(arr):#calc the final out of the majority of the samples
@@ -85,7 +138,10 @@ def calc_str_majority(arr):#calc the final out of the majority of the samples
                 if line[i]=="1": count1+=1
                 elif line[i]=="0": count0+=1
                 elif line[i]=="-": countSpace+=1
-        if countSpace>max(count0,count1): res.append("-")
-        elif count1>max(count0,countSpace): res.append("1")
-        else: res.append("0")
+
+        if countSpace>max(count0,count1):
+            res.append("-")
+            print str(countSpace) +" : "+str(i)+" (1: "+str(count1)+",0:"+str(count0)+")"
+        elif count1> max(count0,countSpace): res.append("1")
+        elif count0>= max(count1,countSpace): res.append("0")
     return res

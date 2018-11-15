@@ -9,8 +9,9 @@ DELETE_MOD = True
 MIXED = False
 RANDOM_DELETIONS= False
 
-#count space as a mistake
-COUNT_SPACE_MISS = False
+#STATISTICS
+OVERCOME_SPACE=True
+COUNT_SPACE_MISS = False #count space as a mistake
 
 
 
