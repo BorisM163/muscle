@@ -1,7 +1,6 @@
 import DEFINES
 import subprocess
 
-
 def makeMATLAB(fileName,listList,minX,maxX, minY,maxY,xlabel,ylabel,zlabel, gap):
     # type: (string, list, integer, integer, integer, integer, string, string, string, string) -> None
     """
