@@ -110,7 +110,8 @@ while temp_end < len(binaryLongString) :
                 min_strings=NUMBER_OF_STRINGS_MIN,
                 mistkaes_inStr_max=NUMBER_OF_FLIPS_IN_STR_MAX,
                 mistkaes_inStr_min=NUMBER_OF_FLIPS_IN_STR_MIN,
-                indx=1)
+                indx=1,
+                gap=FLIP_GAP)
         dz_flip = flat_arr(resultForGraphFlips["Z"])
         num_of_mis = NUMBER_OF_FLIPS_IN_STR_MAX - NUMBER_OF_FLIPS_IN_STR_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN,len(binarySourceString), resultForGraphFlips, num_of_mis)
@@ -148,7 +149,8 @@ while temp_end < len(binaryLongString) :
                 min_strings = NUMBER_OF_STRINGS_MIN,
                 mistkaes_inStr_max = NUMBER_OF_DELETIONS_IN_STR_MAX,
                 mistkaes_inStr_min = NUMBER_OF_DELETIONS_IN_STR_MIN,
-                indx = 3)
+                indx = 3,
+                gap=DEL_GAP)
         dz_del = flat_arr(resultForGraphDeletions["Z"])
         num_of_mis = NUMBER_OF_DELETIONS_IN_STR_MAX - NUMBER_OF_DELETIONS_IN_STR_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN,len(binarySourceString), resultForGraphDeletions, num_of_mis)
@@ -187,7 +189,8 @@ while temp_end < len(binaryLongString) :
                 min_strings=NUMBER_OF_STRINGS_MIN,
                 mistkaes_inStr_max = NUMBER_OF_RANDOM_DELETIONS_IN_STR_MAX,
                 mistkaes_inStr_min = NUMBER_OF_RANDOM_DELETIONS_IN_STR_MIN,
-                indx=3)
+                indx=3,
+                gap=DEL_GAP)
         dz_rand_del = flat_arr(resultForGraphRandomDeletions["Z"])
         num_of_mis = NUMBER_OF_RANDOM_DELETIONS_IN_STR_MAX - NUMBER_OF_RANDOM_DELETIONS_IN_STR_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN,len(binarySourceString), resultForGraphRandomDeletions, num_of_mis)
@@ -235,7 +238,8 @@ while temp_end < len(binaryLongString) :
                       min_strings=NUMBER_OF_STRINGS_MIN,
                       mistkaes_inStr_max=NUMBER_OF_TOTAL_MISTAKES_MAX,
                       mistkaes_inStr_min=NUMBER_OF_TOTAL_MISTAKES_MIN,
-                      indx=5)
+                      indx=5,
+                      gap=MIXED_GAP)
         dz_mix = flat_arr(resultForGraphMixedMistakes["Z"])
         num_of_mis = NUMBER_OF_TOTAL_MISTAKES_MAX - NUMBER_OF_TOTAL_MISTAKES_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS_MIN, len(binarySourceString), resultForGraphMixedMistakes, num_of_mis)
