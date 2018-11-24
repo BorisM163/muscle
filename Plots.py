@@ -112,8 +112,31 @@ def py_scatterPlot(xAxis_MAX,xAxis_min,num_of_mis,res,g_ind,mis_name):
     ax4.set_zlabel('mistake - precent')
     ax4.set_title(mis_name)
 
-def graphit(title, type_name, resultForGraph, max_strings, min_strings, mistkaes_inStr_max, mistkaes_inStr_min, indx):  #YAEL 18-10-18
-    MATLAB.makeMATLAB(title, resultForGraph['Z'], min_strings, max_strings, mistkaes_inStr_min, mistkaes_inStr_max , "Number of strings", type_name+" in single string", "Error Probability")
+def graphit(title, type_name, resultForGraph, max_strings, min_strings, mistkaes_inStr_max, mistkaes_inStr_min, indx, gap):  #YAEL 18-10-18
+    """ this function creates matlab file from the statsitcs gathered by the anylazer
+        and can run the mathlab file to make plots in matlab
+        and can make plots in and python
+    :param title: the mathlab file nme
+    :param type_name:  the type name of what the anlayzer did values are:
+            DELETIONS or FLIPS or MIXED
+    :param resultForGraph:
+    :param max_strings:
+    :param min_strings:
+    :param mistkaes_inStr_max:
+    :param mistkaes_inStr_min:
+    :param indx:
+    :param gap:
+    """
+    MATLAB.makeMATLAB(fileName=title,
+                      listList=resultForGraph['Z'],
+                      minX=min_strings,
+                      maxX=max_strings,
+                      minY=mistkaes_inStr_min,
+                      maxY=mistkaes_inStr_max,
+                      xlabel="Number of strings",
+                      ylabel=type_name+" in single string",
+                      zlabel="Probability",
+                      gap=str(gap))
     if not DEFINES.PYTHON_GRAPH and DEFINES.GRAPH_MID:
         MATLAB.run_MATLAB(title)
     if DEFINES.PYTHON_GRAPH and DEFINES.GRAPH_MID:
