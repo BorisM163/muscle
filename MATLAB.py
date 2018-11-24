@@ -86,8 +86,6 @@ def makeMATLAB(fileName,listList,minX,maxX, minY,maxY,xlabel,ylabel,zlabel, gap)
 
 
 
-
-
 def run_MATLAB(title):
     subprocess.call([r"C:\\Programs\MATLAB\R2017b\bin\matlab.exe", "-nodisplay", "-nosplash", "-nodesktop", "-r","\"run('" + DEFINES.MUSCLE_PATH + title + ".m')\""])
 
