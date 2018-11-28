@@ -53,8 +53,12 @@ def muscleCall_and_Analyze(binarySourceString, arr):
     output_file.close()
     fasta_file.close()
     binaryAfterMajorityString = calc_str_majority(fasta_res)
+    if binaryAfterMajorityString==1:
+        print output_file
+        print fasta_res
+        x=1
     if DEFINES.OVERCOME_SPACE:
-        errorRate = statisticsFromMuscle_GapSpace(binarySourceString, binaryAfterMajorityString)
+        errorRate = statisticsFromMuscle_OverSpace(binarySourceString, binaryAfterMajorityString)
     else:
         errorRate = statisticsFromMuscle(binarySourceString, binaryAfterMajorityString)
 
@@ -79,14 +83,19 @@ def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
     return ((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
 
 
-#return the error preecent. 
+#return the error preecent.
 #this function supose to be smarter and caculate the possible error probebility
-def statisticsFromMuscle_GapSpace(binarySourceString, binaryAfterMajorityString):
+def statisticsFromMuscle_OverSpace(binarySourceString, binaryAfterMajorityString):
     counter = {"Flips": 0, "Space": 0}
     sourceLen =len(binarySourceString)
     AfterMajorityLen= (binaryAfterMajorityString)
     if AfterMajorityLen!=sourceLen:
         print("binarySourceString and binaryAfterMajorityString are in diffrent sizes")
+    print "before stat - overcome space reasults:"
+    st=''.join(binaryAfterMajorityString)
+    print binarySourceString
+    print st; print
+
     j=0; k=0;c=0;
     for i in range(len(binaryAfterMajorityString)):
         if j<(len(binarySourceString)-1) and k< (len(binaryAfterMajorityString)-1):
@@ -94,13 +103,13 @@ def statisticsFromMuscle_GapSpace(binarySourceString, binaryAfterMajorityString)
                 if binaryAfterMajorityString[k] =="-":
                     c+=1
                     if(flip_counter(binarySourceString[j:],(binaryAfterMajorityString[k+1:]))<flip_counter(binarySourceString[j:],binaryAfterMajorityString[k:])):
-                          j-=1
-                          k-=1
                           binaryAfterMajorityString=binaryAfterMajorityString[:k]+binaryAfterMajorityString[k+1:]
                           print "without: "+str(k)
                           print str(binarySourceString[j+1:(j+1 + 30)])
                           st = ''.join(binaryAfterMajorityString[k:(k + 30)])
                           print st
+                          j-=1
+                          k-=1 # because we cat the binaryAfterMajorityString
                     else:
                         print "good: " +str(k)
                         print str(binarySourceString[j:(j+30)])
@@ -108,15 +117,16 @@ def statisticsFromMuscle_GapSpace(binarySourceString, binaryAfterMajorityString)
                         print st
                 else:
                     counter['Flips']+=1
-        j+=1; k+=1
+        j+=1; k+=1;
     print "after stat - overcome space reasults:"
     st=''.join(binaryAfterMajorityString)
     print binarySourceString
     print st
+    print "error: "+ format(((1.0*(counter['Space']+counter['Flips']))/sourceLen),".4f") +"\n"
     return ((1.0*(counter['Space']+counter['Flips']))/sourceLen) # resultForGraph['Z'].append((counter['Space']+counter['Flips'])/strLen)
 
 #count only the flips between 2 string, until there is "-" (after some "0101...")
-# this function is used in statisticsFromMuscle_GapSpace
+# this function is used in statisticsFromMuscle_OverSpace
 def flip_counter(binarySourceString,binaryAfterMajorityString):
     flips=0; first=True
     for s,m in zip(binarySourceString,binaryAfterMajorityString):
@@ -128,9 +138,12 @@ def flip_counter(binarySourceString,binaryAfterMajorityString):
     return flips
 
 
-def calc_str_majority(arr):#calc the final out of the majority of the samples
+def calc_str_majority(arr):#calc the final string out of the majority of the samples
     length=[]; res=[]; i=-1
     for line in arr: length.append(len(line))
+    if length==[]:
+        print "error in fasta arr:\n arr:"
+        print arr
     while(i<max(length)-1):
         count1=0; count0=0; i+=1; countSpace=0;
         for line in arr:

@@ -4,13 +4,13 @@ PYTHON_GRAPH = True
 GRAPH_MID = False #mid graphs - plot a graph after each run. 
 
 #OPERETION MODS
-FLIP_MOD = False
-DELETE_MOD = True
+FLIP_MOD = True
+DELETE_MOD = False
 MIXED = False
 RANDOM_DELETIONS= False
 
 #STATISTICS
-OVERCOME_SPACE=True
+OVERCOME_SPACE=False
 COUNT_SPACE_MISS = False #count space as a mistake
 
 
