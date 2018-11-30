@@ -42,9 +42,9 @@ def FASTA2arr(fasta_file,output_file):#take fasta file, change it to an array an
 #call muscle and decide about the final string (with majority algorithm), and the error rate
 def muscleCall_and_Analyze(binarySourceString, arr):
     arr2FASTA(arr, 1)  # put arr in "in.txt" file
-    subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
+    #subprocess.call([r"/home/ubu/Yael/muscle3.8.31_i86linux64", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
     #subprocess.call([r"C:\\Users\moshab\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
-    # subprocess.call([r"C:\Users\boris7\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
+    subprocess.call([r"C:\Users\boris7\Desktop\final project\muscle\muscle3.8.31_i86win32.exe", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
    # subprocess.call([r"C:\Users\boris10\Desktop\projectCSE\muscle\muscle3.8.31_i86win32.exe", "-in", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_IN_FILE, "-out", DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE])
 
     fasta_file = open(DEFINES.MUSCLE_PATH + DEFINES.MUSCLE_OUT_FILE, 'r')  # read the output of mussle
@@ -69,9 +69,8 @@ def muscleCall_and_Analyze(binarySourceString, arr):
 def statisticsFromMuscle(binarySourceString, binaryAfterMajorityString):
     counter = {"Flips": 0, "Space": 0}
     sourceLen =len(binarySourceString)
-    AfterMajorityLen= (binaryAfterMajorityString)
+    AfterMajorityLen= len(binaryAfterMajorityString)
     if AfterMajorityLen!=sourceLen:
-        assert("binarySourceString and binaryAfterMajorityString are in diffrent sizes")
         print("binarySourceString and binaryAfterMajorityString are in diffrent sizes")
         #return
     for s,m in zip(binarySourceString,binaryAfterMajorityString):

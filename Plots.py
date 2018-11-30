@@ -137,7 +137,8 @@ def graphit(title, type_name, resultForGraph, max_strings, min_strings, mistkaes
                       ylabel=type_name+" in single string",
                       zlabel="Probability",
                       gap=str(gap))
-    if not DEFINES.PYTHON_GRAPH and DEFINES.GRAPH_MID:
+    # if not DEFINES.PYTHON_GRAPH and DEFINES.GRAPH_MID:
+    if DEFINES.ALLOW_MATLAB_RUN:
         MATLAB.run_MATLAB(title)
     if DEFINES.PYTHON_GRAPH and DEFINES.GRAPH_MID:
         num_of_mis = mistkaes_inStr_max + 1 - mistkaes_inStr_min

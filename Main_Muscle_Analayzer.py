@@ -47,17 +47,17 @@ def analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN, strLen,res
 binaryLongString ="110001101111111010011100111000011001110111111100111100001110101011011111111001110111111011011100111111001111100011100011111000011010101101100110100011000101101101110010011000011101000111100111101101101001111010111001011101101110101111100111110011110010011100111101100110010011001011100010110010111100111101110110111011011101100111111000011001011110011110010011011101110100111001011100101110110111100111100111110101110100111100001111001111011111000011110100111000011001101101111110010111011001110100110100011100101101111111011111010001100110110010111110001101100111011111001001111001111001111101101110"
 y=len(binaryLongString)
 x=1
-temp_end = 200
+temp_end = 100
 time_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
 while temp_end < len(binaryLongString) :
-    temp_end += 100
+    temp_end += 0
     binarySourceString = binaryLongString[:temp_end]
 
     NUMBER_OF_STRINGS_MIN = 2
-    NUMBER_OF_STRINGS_MAX = int(0.75*len(binarySourceString))
+    NUMBER_OF_STRINGS_MAX = 100 #int(0.75*len(binarySourceString))
 
-    misMax = 0.1*len(binarySourceString)
+    misMax = 50 #0.4*len(binarySourceString)
     NUMBER_OF_DELETIONS_IN_STR_MIN= 0
     NUMBER_OF_DELETIONS_IN_STR_MAX= int(misMax)
     NUMBER_OF_RANDOM_DELETIONS_IN_STR_MIN = 0
@@ -69,11 +69,11 @@ while temp_end < len(binaryLongString) :
     NUMBER_OF_TOTAL_MISTAKES_MIN = 0
     NUMBER_OF_TOTAL_MISTAKES_MAX =  int(misMax)
 
-    STRING_GAP = 20
+    STRING_GAP = 1
     DEL_GAP = 1
     FLIP_GAP = 1
     MIXED_GAP = 1
-    RAPEAT_TIMES = 5
+    RAPEAT_TIMES = 1
 
     if DEFINES.FLIP_MOD:
         numberOfString = NUMBER_OF_STRINGS_MIN
@@ -85,10 +85,10 @@ while temp_end < len(binaryLongString) :
                 totalErrorRate=0
                 for i in range(RAPEAT_TIMES):
                     arr = ArraysBuilder.buildArrays(binarySourceString=binarySourceString,
-                                                    numberOfString=numberOfString+1,
+                                                    numberOfString=numberOfString,
                                                     numOfGoodString=0,
                                                     numberOfDeletionsInStr=0,
-                                                    numberOfFlipsInStr=0,
+                                                    numberOfFlipsInStr=numberOfFlipsInStr,
                                                     numberOfStringsWithDeletions=0,
                                                     MixedMistakesAddMoreFlips=0,
                                                     MixedMistakesAddMoreDels=0)
@@ -111,7 +111,7 @@ while temp_end < len(binaryLongString) :
                 mistkaes_inStr_max=NUMBER_OF_FLIPS_IN_STR_MAX,
                 mistkaes_inStr_min=NUMBER_OF_FLIPS_IN_STR_MIN,
                 indx=1,
-                gap=FLIP_GAP)
+                gap=STRING_GAP)
         dz_flip = flat_arr(resultForGraphFlips["Z"])
         num_of_mis = NUMBER_OF_FLIPS_IN_STR_MAX - NUMBER_OF_FLIPS_IN_STR_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN,len(binarySourceString), resultForGraphFlips, num_of_mis)
@@ -129,7 +129,7 @@ while temp_end < len(binaryLongString) :
                                                     numberOfString=numberOfString+NUMBER_OF_COMPLETE_STRINGS_FOR_DEL,
                                                     numOfGoodString=0,
                                                     numberOfDeletionsInStr=numberOfDeletionsInStr,
-                                                    numberOfFlipsInStr=numberOfDeletionsInStr,
+                                                    numberOfFlipsInStr=0,
                                                     numberOfStringsWithDeletions=numberOfString - 0, # numberOfString - numOfGoodString
                                                     MixedMistakesAddMoreFlips=0,
                                                     MixedMistakesAddMoreDels=0)
@@ -150,7 +150,7 @@ while temp_end < len(binaryLongString) :
                 mistkaes_inStr_max = NUMBER_OF_DELETIONS_IN_STR_MAX,
                 mistkaes_inStr_min = NUMBER_OF_DELETIONS_IN_STR_MIN,
                 indx = 3,
-                gap=DEL_GAP)
+                gap=STRING_GAP)
         dz_del = flat_arr(resultForGraphDeletions["Z"])
         num_of_mis = NUMBER_OF_DELETIONS_IN_STR_MAX - NUMBER_OF_DELETIONS_IN_STR_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN,len(binarySourceString), resultForGraphDeletions, num_of_mis)
@@ -169,7 +169,7 @@ while temp_end < len(binaryLongString) :
                                                     numberOfString=numberOfString + NUMBER_OF_COMPLETE_STRINGS_FOR_DEL,
                                                     numOfGoodString=0,
                                                     numberOfDeletionsInStr=numberOfRandomDeletionsInStr,
-                                                    numberOfFlipsInStr=numberOfRandomDeletionsInStr,
+                                                    numberOfFlipsInStr=0,
                                                     numberOfStringsWithDeletions=numberOfString - 0,# numberOfString - numOfGoodString
                                                     MixedMistakesAddMoreFlips=0,
                                                     MixedMistakesAddMoreDels=0)
@@ -190,7 +190,7 @@ while temp_end < len(binaryLongString) :
                 mistkaes_inStr_max = NUMBER_OF_RANDOM_DELETIONS_IN_STR_MAX,
                 mistkaes_inStr_min = NUMBER_OF_RANDOM_DELETIONS_IN_STR_MIN,
                 indx=3,
-                gap=DEL_GAP)
+                gap=STRING_GAP)
         dz_rand_del = flat_arr(resultForGraphRandomDeletions["Z"])
         num_of_mis = NUMBER_OF_RANDOM_DELETIONS_IN_STR_MAX - NUMBER_OF_RANDOM_DELETIONS_IN_STR_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX,NUMBER_OF_STRINGS_MIN,len(binarySourceString), resultForGraphRandomDeletions, num_of_mis)
@@ -239,7 +239,7 @@ while temp_end < len(binaryLongString) :
                       mistkaes_inStr_max=NUMBER_OF_TOTAL_MISTAKES_MAX,
                       mistkaes_inStr_min=NUMBER_OF_TOTAL_MISTAKES_MIN,
                       indx=5,
-                      gap=MIXED_GAP)
+                      gap=STRING_GAP)
         dz_mix = flat_arr(resultForGraphMixedMistakes["Z"])
         num_of_mis = NUMBER_OF_TOTAL_MISTAKES_MAX - NUMBER_OF_TOTAL_MISTAKES_MIN + 1
         analayze_decoderStat(NUMBER_OF_STRINGS_MAX, NUMBER_OF_STRINGS_MIN, len(binarySourceString), resultForGraphMixedMistakes, num_of_mis)
