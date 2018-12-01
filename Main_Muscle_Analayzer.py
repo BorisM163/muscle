@@ -51,13 +51,13 @@ temp_end = 100
 time_start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
 while temp_end < len(binaryLongString) :
-    temp_end += 0
+    temp_end += 100
     binarySourceString = binaryLongString[:temp_end]
 
     NUMBER_OF_STRINGS_MIN = 2
-    NUMBER_OF_STRINGS_MAX = 100 #int(0.75*len(binarySourceString))
+    NUMBER_OF_STRINGS_MAX = int(0.75*len(binarySourceString))
 
-    misMax = 50 #0.4*len(binarySourceString)
+    misMax = 0.6*len(binarySourceString)
     NUMBER_OF_DELETIONS_IN_STR_MIN= 0
     NUMBER_OF_DELETIONS_IN_STR_MAX= int(misMax)
     NUMBER_OF_RANDOM_DELETIONS_IN_STR_MIN = 0
